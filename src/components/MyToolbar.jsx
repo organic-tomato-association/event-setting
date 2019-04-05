@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import * as Actions from '../actions';
-import { Toolbar } from 'react-onsenui';
+import { Toolbar, Icon } from 'react-onsenui';
 
 class MyToolbar extends React.Component {
   render() {

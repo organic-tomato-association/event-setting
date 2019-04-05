@@ -1,10 +1,8 @@
-import 'dotenv.config';
-
-export const firebaseConfig = {
-    apiKey: process.env.FIREBASE_API_KEY,
-    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-    databaseURL: process.env.FIREBASE_DATABASE_URL,
-    projectId: process.env.FIREBASE_PROJECT_ID,
-    storageBucket: process.env.STORAGE_BUCKET,
-    messagingSenderId: process.env.FIREBASE_MESSAGEING_SENDER_ID
+export default {
+    apiKey: 'AIzaSyBsmKZwVnFLqr_dRroJ4EXHAiB8-SlTnCw',
+    authDomain: 'event-setting.firebaseapp.com',
+    databaseURL: 'https://event-setting.firebaseio.com',
+    projectId: 'event-setting',
+    storageBucket: 'event-setting.appspot.com',
+    messagingSenderId: '925199588708',
 };

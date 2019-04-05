@@ -4,12 +4,14 @@ import { bindActionCreators } from 'redux';
 import * as Actions from './actions';
 import { Navigator } from 'react-onsenui';
 import { When } from 'react-display-switch';
+import { firebaseApp } from './firebase/index';
 import './App.css';
 
 import 'onsenui/css/onsenui.css';
 import 'onsenui/css/onsen-css-components.css';
 
 import Body from './components/Pages/Body';
+import Auth from './components/Pages/Auth';
 
 When.case('screen_xs', () => window.innerWidth < 768)
 When.case('screen_md', () => !When.screen_xs && window.innerWidth < 992)
@@ -17,12 +19,21 @@ When.case('screen_lg', () => window.innerWidth >= 992)
 
 class App extends Component {
   render() {
+    const { uid } = this.props;
     return (
-      <Navigator
-        swipeable
-        initialRoute={{ component: Body, props: { key: 'Body' } }}
-        renderPage={this.renderPage}
-      />
+      <div>
+        {
+          uid
+            ? <Navigator
+              swipeable
+              initialRoute={
+                { component: Body, props: { key: 'Body' } }
+              }
+              renderPage={this.renderPage}
+            />
+            : <Auth />
+        }
+      </div>
     );
   }
 
@@ -35,7 +46,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    tab: state.ui.tab,
+    uid: state.auth.uid,
   };
 }
 
