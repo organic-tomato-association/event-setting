@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+import * as Actions from './actions';
+import { Navigator } from 'react-onsenui';
 import { When } from 'react-display-switch';
 import './App.css';
 
 import 'onsenui/css/onsenui.css';
 import 'onsenui/css/onsen-css-components.css';
 
-import BodyContainer from './containers/BodyContainer';
-import HeaderContainer from './containers/HeaderContainer';
-import NotFound from './components/NotFound/NotFound';
+import Body from './components/Pages/Body';
 
 When.case('screen_xs', () => window.innerWidth < 768)
 When.case('screen_md', () => !When.screen_xs && window.innerWidth < 992)
@@ -17,15 +18,34 @@ When.case('screen_lg', () => window.innerWidth >= 992)
 class App extends Component {
   render() {
     return (
-      <Router>
-        <HeaderContainer />
-        <Switch>
-          <Route exact path="/" component={BodyContainer} />
-          <Route component={NotFound} />
-        </Switch>
-      </Router>
+      <Navigator
+        swipeable
+        initialRoute={{ component: Body, props: { key: 'Body' } }}
+        renderPage={this.renderPage}
+      />
     );
+  }
+
+  renderPage(route, navigator) {
+    const props = route.props || {};
+    props.navigator = navigator;
+    return React.createElement(route.component, props);
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    tab: state.ui.tab,
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators(Actions, dispatch),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

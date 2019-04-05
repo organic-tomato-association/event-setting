@@ -14,7 +14,7 @@ const initialState = {
 export default function ui(state = initialState, action) {
   switch (action.type) {
     case types.TAB_CHANGE:
-      const title = action.id === 0 ? 'Home' : 'Settings'
+      const title = action.id === 0 ? 'Home' : 'My Page'
       return {
         ...state,
         tab: action.id,
