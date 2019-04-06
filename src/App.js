@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as Actions from './actions';
 import { Navigator } from 'react-onsenui';
 import { When } from 'react-display-switch';
-import { firebaseApp } from './firebase/index';
+import { firebaseApp } from './firebase/index'; // eslint-disable-line no-unused-vars
 import './App.css';
 
 import 'onsenui/css/onsenui.css';
