@@ -10,14 +10,15 @@ class Auth extends Component {
     this.props.refLogin()
   }
 
-  renderToolbar() {
+  renderToolbar(title) {
     return React.createElement(MyToolbar);
   }
 
   render() {
+    const { title } = this.props;
     return (
       <Page
-        renderToolbar={this.renderToolbar}
+        renderToolbar={this.renderToolbar.bind(this, title)}
       >
         <button onClick={this.props.doGithubLogin}>Login</button>
       </Page>
@@ -42,7 +43,6 @@ const mapDispatchToProps = (dispatch) => {
         if (!user) {
           return
         }
-        console.log(user);
         dispatch(Actions.loginOk(user));
       })
     }

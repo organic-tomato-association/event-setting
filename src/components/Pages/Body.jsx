@@ -12,10 +12,10 @@ import MyPage from './Tabs/MyPage';
 
 class Body extends React.Component {
   render() {
-    const { tab, actions } = this.props;
+    const { tab, navigator, actions } = this.props;
     return (
       <Page
-        renderToolbar={this.renderToolbar}
+        renderToolbar={this.renderToolbar.bind(this, navigator)}
       >
         <Tabbar
           onPreChange={({ index }) => actions.tabChange(index)}
@@ -36,8 +36,8 @@ class Body extends React.Component {
       </Page>
     );
   }
-  renderToolbar() {
-    return React.createElement(MyToolbar);
+  renderToolbar(navigator) {
+    return React.createElement(MyToolbar, navigator);
   }
 }
 

@@ -6,9 +6,16 @@ import { Page, Card, Row, Col } from 'react-onsenui';
 import EventDetail from '../EventDetail';
 
 class Home extends React.Component {
-
   pushPage(key) {
-    this.props.navigator.pushPage({ component: EventDetail, props: { key: 'eventDitail', event: key } });
+    this.props.navigator.pushPage({
+      component: EventDetail,
+      props: {
+        key: 'eventDetail',
+        event: key,
+        title: 'Event Detail',
+        navigator: this.props.navigator,
+      },
+    });
   }
 
   render() {
@@ -30,7 +37,7 @@ class Home extends React.Component {
             </Row>
           </div>
         </section>
-      </Page >
+      </Page>
     );
   }
 }

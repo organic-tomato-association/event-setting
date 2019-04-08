@@ -2,7 +2,7 @@ import * as types from '../constants/ActionTypes'
 
 // 初期化
 const initialState = {
-  title: 'Home',
+  title: 'Login',
   tab: 0,
 };
 
@@ -20,6 +20,11 @@ export default function ui(state = initialState, action) {
         tab: action.id,
         title: title,
       };
+    case types.LOGIN_OK:
+      return {
+        ...state,
+        title: 'Home',
+      }
     default:
       return state;
   }

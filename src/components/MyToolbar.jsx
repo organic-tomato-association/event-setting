@@ -2,15 +2,30 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import * as Actions from '../actions';
-import { Toolbar, Icon } from 'react-onsenui';
+import { Toolbar, BackButton } from 'react-onsenui';
 
 class MyToolbar extends React.Component {
   render() {
-    const { title } = this.props;
+    const { title, navigator } = this.props;
+    console.log(navigator);
     return (
       <Toolbar>
+        {navigator
+          ? <div className="left">
+            {
+              1 < navigator.routes.length
+                ? <BackButton>{navigator.routes[navigator.routes.length - 2].props.key}</BackButton>
+                : null
+            }
+          </div>
+          : null
+        }
         <div className="center">
-          {title}
+          {
+            navigator
+              ? navigator.routes[navigator.routes.length - 1].props.title
+              : title
+          }
         </div>
       </Toolbar>
     );

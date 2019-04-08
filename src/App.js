@@ -19,7 +19,7 @@ When.case('screen_lg', () => window.innerWidth >= 992)
 
 class App extends Component {
   render() {
-    const { uid } = this.props;
+    const { uid, title } = this.props;
     return (
       <div>
         {
@@ -27,11 +27,11 @@ class App extends Component {
             ? <Navigator
               swipeable
               initialRoute={
-                { component: Body, props: { key: 'Body' } }
+                { component: Body, props: { key: title } }
               }
               renderPage={this.renderPage}
             />
-            : <Auth />
+            : <Auth title={'Event Setting'} />
         }
       </div>
     );
@@ -47,6 +47,7 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     uid: state.auth.uid,
+    title: state.ui.title,
   };
 }
 
