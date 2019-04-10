@@ -58,6 +58,7 @@ jobs:
     executor:
       name: default
     steps:
+      - checkout
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
