@@ -48,7 +48,7 @@ jobs:
               echo "storageBucket: '$FIREBASE_STORAGE_BUCKET'," >> src/firebase/config.js
               echo "messagingSenderId: '$FIREBASE_MESSAGEING_SENDER_ID'," >> src/firebase/config.js
               echo "};" >> src/firebase/config.js
-              cp firebase.json.example firebase.json
+              cp .firebaserc.example .firebaserc
               cp firebase.database.rules.json.example firebase.database.rules.json 
 
       # run tests!
