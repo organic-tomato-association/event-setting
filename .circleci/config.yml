@@ -41,18 +41,28 @@ jobs:
       - run:
           name: 'Build Client Code'
           command: npm run build
-      # - run:
-      #     name: 'test'
-      #     command: npm run test
       - persist_to_workspace:
-          root: .
-          paths: .
+          # working_directory からの相対パスか絶対パスを指定します。
+          # これは Workspace のルートディレクトリとなるコンテナ内のディレクトリです
+          root: workspace
+          # root からの相対パスを指定します
+          paths:
+            - build
+  # test-job:
+  #   executor:
+  #     name: default
+  #   steps:
+  #     - attach_workspace:
+  #         at: .
+  #     -run:
+  #       name: 'Test'
+  #       command: npm run test
   deploy-job:
     executor:
       name: default
     steps:
       - attach_workspace:
-          at: .
+          at: workspace
       - run:
           name: 'Deploy to Hosting'
           command: node_modules/.bin/firebase deploy --only hosting --project "$FIREBASE_PJ" --token "$FIREBASE_TOKEN"
