@@ -1,14 +1,24 @@
+import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router-dom';
-import * as Actions from '../actions';
+import * as Actions from '../../../actions';
+import { Page } from 'react-onsenui';
 
-import Body from '../components/Body';
+class MyPage extends React.Component {
+  render() {
+    return (
+      <Page>
+        <div>
+          My Page
+        </div>
+      </Page>
+    );
+  }
+}
 
 const mapStateToProps = (state) => {
   return {
     tab: state.ui.tab,
-    onChange: Actions.tabChange,
   };
 }
 
@@ -18,7 +28,7 @@ const mapDispatchToProps = dispatch => {
   };
 }
 
-export default withRouter(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Body));
+)(MyPage);

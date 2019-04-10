@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import './index.css';
 import App from './App';
-
 import configureStore from './store/configureStore';
+
+import 'onsenui/css/onsenui.css';
+import 'onsenui/css/onsen-css-components.css';
+import './index.css';
 
 const store = configureStore();
 
