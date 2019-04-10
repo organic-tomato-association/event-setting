@@ -51,6 +51,19 @@ jobs:
       name: default
     steps:
       - run:
+          name: 'Create Config File'
+          command: |
+            echo "export default {" > src/firebase/config.js
+            echo "apiKey: '$FIREBASE_API_KEY'," >> src/firebase/config.js
+            echo "authDomain: '$FIREBASE_AUTH_DOMAIN'," >> src/firebase/config.js
+            echo "databaseURL: '$FIREBASE_DATABASE_URL'," >> src/firebase/config.js
+            echo "projectId: '$FIREBASE_PROJECT_ID'," >> src/firebase/config.js
+            echo "storageBucket: '$FIREBASE_STORAGE_BUCKET'," >> src/firebase/config.js
+            echo "messagingSenderId: '$FIREBASE_MESSAGEING_SENDER_ID'," >> src/firebase/config.js
+            echo "};" >> src/firebase/config.js
+            cp .firebaserc.example .firebaserc
+            cp database.rules.json.example database.rules.json 
+      - run:
           name: 'Deploy to Hosting'
           command: node_modules/.bin/firebase deploy --only hosting --project "$FIREBASE_PJ" --token "$FIREBASE_TOKEN"
 
