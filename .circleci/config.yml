@@ -2,41 +2,34 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
+version: 2.1
+executors:
+  default:
+    build:
+      docker:
+        - image: circleci/node:10
+    working_directory: ~/repo
 version: 2
 jobs:
   build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/node:10
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
-    working_directory: ~/repo
-
+    executor:
+      name: default
     steps:
       - checkout
-
       # Download and cache dependencies
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-
       - run: npm install
-
       - run:
           name: 'Install Dependecies'
           command: npm install --save-dev firebase-tools
-
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-
       - run:
           name: 'Create Config File'
           command: |
@@ -50,17 +43,29 @@ jobs:
               echo "};" >> src/firebase/config.js
               cp .firebaserc.example .firebaserc
               cp database.rules.json.example database.rules.json 
-
-      # run tests!
-      # - run: npm test
-
       - run:
           name: 'Build Client Code'
           command: npm run build
-
+      - run:
+        name: 'test'
+        command: npm run test
       - attach_workspace:
           at: .
-
+  deploy:
+    executor:
+      name: default
+    steps:
       - run:
           name: 'Deploy to Hosting'
           command: node_modules/.bin/firebase deploy --only hosting --project "$FIREBASE_PJ" --token "$FIREBASE_TOKEN"
+workflows:
+  test-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
