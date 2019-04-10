@@ -58,8 +58,13 @@ jobs:
     executor:
       name: default
     steps:
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
       - attach_workspace:
-          at: buld
+          at: build
       - run:
           name: 'Deploy to Hosting'
           command: node_modules/.bin/firebase deploy --only hosting --project "$FIREBASE_PJ" --token "$FIREBASE_TOKEN"
