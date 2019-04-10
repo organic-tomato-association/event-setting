@@ -62,7 +62,7 @@ jobs:
       name: default
     steps:
       - attach_workspace:
-          at: /tmp/workspace
+          at: workspace
       - run:
           name: 'Deploy to Hosting'
           command: node_modules/.bin/firebase deploy --only hosting --project "$FIREBASE_PJ" --token "$FIREBASE_TOKEN"
