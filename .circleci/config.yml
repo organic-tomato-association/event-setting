@@ -46,7 +46,7 @@ jobs:
       #     command: npm run test
       - attach_workspace:
           at: .
-  build-job:
+  deploy-job:
     executor:
       name: default
     steps:
