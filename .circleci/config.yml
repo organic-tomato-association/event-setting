@@ -5,61 +5,62 @@ executors:
       - image: circleci/node:10
     working_directory: ~/repo
 jobs:
-  build:
+  build-job:
     executor:
       name: default
     steps:
       - checkout
       # Download and cache dependencies
       - restore_cache:
-        keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-      - run: npm install
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
       - run:
-        name: 'Install Dependecies'
-        command: npm install --save-dev firebase-tools
+          name: 'npm install'
+          command: |
+            npm install
+            npm install --save-dev firebase-tools
       - save_cache:
-        paths:
-          - node_modules
-        key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
       - run:
-        name: 'Create Config File'
-        command: |
-          echo "export default {" > src/firebase/config.js
-          echo "apiKey: '$FIREBASE_API_KEY'," >> src/firebase/config.js
-          echo "authDomain: '$FIREBASE_AUTH_DOMAIN'," >> src/firebase/config.js
-          echo "databaseURL: '$FIREBASE_DATABASE_URL'," >> src/firebase/config.js
-          echo "projectId: '$FIREBASE_PROJECT_ID'," >> src/firebase/config.js
-          echo "storageBucket: '$FIREBASE_STORAGE_BUCKET'," >> src/firebase/config.js
-          echo "messagingSenderId: '$FIREBASE_MESSAGEING_SENDER_ID'," >> src/firebase/config.js
-          echo "};" >> src/firebase/config.js
-          cp .firebaserc.example .firebaserc
-          cp database.rules.json.example database.rules.json 
+          name: 'Create Config File'
+          command: |
+            echo "export default {" > src/firebase/config.js
+            echo "apiKey: '$FIREBASE_API_KEY'," >> src/firebase/config.js
+            echo "authDomain: '$FIREBASE_AUTH_DOMAIN'," >> src/firebase/config.js
+            echo "databaseURL: '$FIREBASE_DATABASE_URL'," >> src/firebase/config.js
+            echo "projectId: '$FIREBASE_PROJECT_ID'," >> src/firebase/config.js
+            echo "storageBucket: '$FIREBASE_STORAGE_BUCKET'," >> src/firebase/config.js
+            echo "messagingSenderId: '$FIREBASE_MESSAGEING_SENDER_ID'," >> src/firebase/config.js
+            echo "};" >> src/firebase/config.js
+            cp .firebaserc.example .firebaserc
+            cp database.rules.json.example database.rules.json 
       - run:
-        name: 'Build Client Code'
-        command: npm run build
-      - run:
-        name: 'test'
-        command: npm run test
+          name: 'Build Client Code'
+          command: npm run build
+      # - run:
+      #     name: 'test'
+      #     command: npm run test
       - attach_workspace:
-        at: .
-  deploy:
+          at: .
+  build-job:
     executor:
       name: default
     steps:
       - run:
-        name: 'Deploy to Hosting'
-        command: node_modules/.bin/firebase deploy --only hosting --project "$FIREBASE_PJ" --token "$FIREBASE_TOKEN"
+          name: 'Deploy to Hosting'
+          command: node_modules/.bin/firebase deploy --only hosting --project "$FIREBASE_PJ" --token "$FIREBASE_TOKEN"
 
 workflows:
   test-and-deploy:
     jobs:
-      - build
-      - deploy:
+      - build-job
+      - deploy-job:
           requires:
-            - build
+            - build-job
           filters:
             branches:
               only:
