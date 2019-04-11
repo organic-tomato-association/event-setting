@@ -4,6 +4,7 @@ import * as types from '../constants/ActionTypes'
 const initialState = {
   title: 'Login',
   tab: 0,
+  isShowSplitter: false,
 };
 
 /**
@@ -25,6 +26,16 @@ export default function ui(state = initialState, action) {
         ...state,
         title: 'Home',
       }
+    case types.OPEN_SPLITTER:
+      return {
+        ...state,
+        isShowSplitter: true,
+      };
+    case types.CLOSE_SPLITTER:
+      return {
+        ...state,
+        isShowSplitter: false,
+      };
     default:
       return state;
   }

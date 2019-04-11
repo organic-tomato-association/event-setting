@@ -20,7 +20,6 @@ class Body extends React.Component {
         <Tabbar
           onPreChange={({ index }) => actions.tabChange(index)}
           position='bottom'
-          swipeable={true}
           index={tab}
           renderTabs={() => [
             {

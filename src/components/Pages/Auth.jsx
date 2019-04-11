@@ -43,6 +43,7 @@ const mapDispatchToProps = (dispatch) => {
         if (!user) {
           return
         }
+        console.log(user);
         dispatch(Actions.loginOk(user));
       })
     }
