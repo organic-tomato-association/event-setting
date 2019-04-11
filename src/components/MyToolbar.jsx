@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import * as Actions from '../actions';
-import { Toolbar, BackButton } from 'react-onsenui';
+import { Toolbar, BackButton, ToolbarButton, Icon } from 'react-onsenui';
 
 class MyToolbar extends React.Component {
   render() {
-    const { title, navigator } = this.props;
-    console.log(navigator);
+    const { title, navigator, actions } = this.props;
+    console.log(actions);
     return (
       <Toolbar>
         {navigator
@@ -26,6 +26,11 @@ class MyToolbar extends React.Component {
               ? navigator.routes[navigator.routes.length - 1].props.title
               : title
           }
+        </div>
+        <div className="right">
+          <ToolbarButton onClick={() => actions.openSplitter()}>
+            <Icon icon='ion-navicon, material:md-menu' />
+          </ToolbarButton>
         </div>
       </Toolbar>
     );
