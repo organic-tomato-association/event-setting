@@ -28,11 +28,6 @@ export default function auth(state = initialState, action) {
         displayName: null,
         email: null,
       };
-    case types.UPDATE_DISPLAY_NAME:
-      return {
-        ...state,
-        displayName: action.displayName,
-      };
     default:
       return state;
   }
