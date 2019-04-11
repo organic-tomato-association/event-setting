@@ -17,3 +17,22 @@ export function tabChange(id) {
     id,
   };
 }
+
+export function closeSplitter() {
+  return {
+    type: types.CLOSE_SPLITTER,
+  };
+}
+
+export function openSplitter() {
+  return {
+    type: types.OPEN_SPLITTER,
+  };
+}
+
+export function updateDisplayName(displayName) {
+  return {
+    type: types.UPDATE_DISPLAY_NAME,
+    displayName,
+  };
+}
