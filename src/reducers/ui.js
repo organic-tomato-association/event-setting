@@ -2,8 +2,9 @@ import * as types from '../constants/ActionTypes'
 
 // 初期化
 const initialState = {
-  title: 'Home',
+  title: 'Login',
   tab: 0,
+  isShowSplitter: false,
 };
 
 /**
@@ -14,11 +15,26 @@ const initialState = {
 export default function ui(state = initialState, action) {
   switch (action.type) {
     case types.TAB_CHANGE:
-      const title = action.id === 0 ? 'Home' : 'Settings'
+      const title = action.id === 0 ? 'Home' : 'My Page'
       return {
         ...state,
         tab: action.id,
         title: title,
+      };
+    case types.LOGIN_OK:
+      return {
+        ...state,
+        title: 'Home',
+      }
+    case types.OPEN_SPLITTER:
+      return {
+        ...state,
+        isShowSplitter: true,
+      };
+    case types.CLOSE_SPLITTER:
+      return {
+        ...state,
+        isShowSplitter: false,
       };
     default:
       return state;
