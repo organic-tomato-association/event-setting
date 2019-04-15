@@ -1,6 +1,7 @@
 # event-setting
 
-[![CircleCI](https://circleci.com/gh/organic-tomato-association/event-setting/tree/master.svg?style=svg)](https://circleci.com/gh/organic-tomato-association/event-setting/tree/master)
+![](https://circleci.com/gh/organic-tomato-association/event-setting/tree/master.svg?style=shield&circle-token=164e550f537e6f37edadabb9ef3b1a3a596745f7)
+
 
 ## What's This ?
 
