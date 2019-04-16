@@ -16,8 +16,7 @@ jobs:
             - v1-dependencies-
       - run:
         name: 'npm install'
-        command: |
-          npm install
+        command: npm install
       - save_cache:
           paths:
             - node_modules
@@ -42,8 +41,7 @@ jobs:
             - v1-dependencies-
       - run:
           name: 'npm install'
-          command: |
-            npm install
+          command: npm install
       - save_cache:
           paths:
             - node_modules
@@ -91,12 +89,12 @@ workflows:
     jobs:
       - eslint
       - build-job:
-        requires:
-          - eslint
+          requires:
+            - eslint
       - deploy-job:
-        requires:
-          - build-job
-        filters:
-          branches:
-            only:
-              - master
+          requires:
+            - build-job
+          filters:
+            branches:
+              only:
+                - master
