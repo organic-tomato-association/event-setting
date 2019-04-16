@@ -12,15 +12,17 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
+            - v1-dependencies-eslint-{{ checksum "package.json" }}
+            - v1-dependencies-eslint-
       - run:
           name: 'npm install'
-          command: npm install
+          command: |
+            npm install
+            npm install eslint babel-eslint
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-eslint-{{ checksum "package.json" }}
       - run:
           name: 'eslint'
           command: |
