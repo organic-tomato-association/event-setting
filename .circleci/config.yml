@@ -22,12 +22,12 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run:
-        name: 'eslint'
-        command: |
-          mkdir -p ~/repo/test-reports/eslint
-          node_modules/.bin/eslint ./src/* --format junit --output-file ~/repo/test-reports/eslint/results.xml
+          name: 'eslint'
+          command: |
+            mkdir -p ~/repo/test-reports/eslint
+            node_modules/.bin/eslint ./src/* --format junit --output-file ~/repo/test-reports/eslint/results.xml
       - store_test_results:
-        path: ~/repo/test-reports
+          path: ~/repo/test-reports
   build-job:
     executor:
       name: default
