@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+<testsuite package="org.eslint" time="0" tests="1" errors="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\actions\index.js">
+<testcase time="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\actions\index.js" />
+</testsuite>
+<testsuite package="org.eslint" time="0" tests="1" errors="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\App.js">
+<testcase time="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\App.js" />
+</testsuite>
+<testsuite package="org.eslint" time="0" tests="1" errors="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\App.test.js">
+<testcase time="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\App.test.js" />
+</testsuite>
+<testsuite package="org.eslint" time="0" tests="1" errors="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\constants\ActionTypes.js">
+<testcase time="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\constants\ActionTypes.js" />
+</testsuite>
+<testsuite package="org.eslint" time="0" tests="1" errors="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\firebase\config.js">
+<testcase time="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\firebase\config.js" />
+</testsuite>
+<testsuite package="org.eslint" time="0" tests="1" errors="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\firebase\index.js">
+<testcase time="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\firebase\index.js" />
+</testsuite>
+<testsuite package="org.eslint" time="0" tests="1" errors="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\index.js">
+<testcase time="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\index.js" />
+</testsuite>
+<testsuite package="org.eslint" time="0" tests="1" errors="1" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\reducers\auth.js">
+<testcase time="0" name="org.eslint.unknown"><error message="Parsing error: Unexpected token ..."><![CDATA[line 19, col 9, Error - Parsing error: Unexpected token ...]]></error></testcase>
+</testsuite>
+<testsuite package="org.eslint" time="0" tests="1" errors="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\reducers\data.js">
+<testcase time="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\reducers\data.js" />
+</testsuite>
+<testsuite package="org.eslint" time="0" tests="1" errors="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\reducers\index.js">
+<testcase time="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\reducers\index.js" />
+</testsuite>
+<testsuite package="org.eslint" time="0" tests="1" errors="1" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\reducers\ui.js">
+<testcase time="0" name="org.eslint.unknown"><error message="Parsing error: Unexpected token ..."><![CDATA[line 20, col 9, Error - Parsing error: Unexpected token ...]]></error></testcase>
+</testsuite>
+<testsuite package="org.eslint" time="0" tests="1" errors="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\serviceWorker.js">
+<testcase time="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\serviceWorker.js" />
+</testsuite>
+<testsuite package="org.eslint" time="0" tests="1" errors="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\store\configureStore.js">
+<testcase time="0" name="C:\Users\naoki.fujisawa\.ghq\github.com\WakuwakuP\event-setting\src\store\configureStore.js" />
+</testsuite>
+</testsuites>

@@ -25,7 +25,7 @@ jobs:
           name: 'eslint'
           command: |
             mkdir -p ~/repo/test-reports/eslint
-            node_modules/.bin/eslint ./src/* --format junit --output-file ~/repo/test-reports/eslint/results.xml
+            node_modules/.bin/eslint ./src/**/*.{js,jsx} --format junit --output-file ~/repo/test-reports/eslint/results.xml
       - store_test_results:
           path: ~/repo/test-reports
   build-job:
