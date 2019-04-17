@@ -23,10 +23,12 @@ class SplitterView extends React.Component {
 
   render() {
     const { displayName } = this.props;
+    const { photoUrl } = this.props;
+    console.log(photoUrl)
     return (
       <Page>
         <div style={{ height: '220px', border: 'solid black 1px' }}>
-          <img src='https://github.com/doRA9876.png' alt="UserProfileImg" height="220px"/>
+          <img src={photoUrl} alt="UserProfileImg" height="220px" />
         </div>
         <div>{displayName}</div>
         <List>
@@ -40,6 +42,7 @@ class SplitterView extends React.Component {
 const mapStateToProps = (state) => {
   return {
     displayName: state.auth.displayName,
+    photoUrl: state.auth.photoUrl
   };
 }
 
