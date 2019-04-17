@@ -25,7 +25,9 @@ class SplitterView extends React.Component {
     const { displayName } = this.props;
     return (
       <Page>
-        <div style={{ height: '220px', border: 'solid black 1px' }}>アイコン</div>
+        <div style={{ height: '220px', border: 'solid black 1px' }}>
+          <img src='https://github.com/doRA9876.png' alt="UserProfileImg" height="220px"/>
+        </div>
         <div>{displayName}</div>
         <List>
           <ListItem key={UserUpdate.name} onClick={this.pushPage.bind(this)}>ユーザー情報更新</ListItem>
