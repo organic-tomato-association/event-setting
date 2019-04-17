@@ -5,6 +5,7 @@ export function loginOk(user) {
     type: types.LOGIN_OK,
     payload: {
       displayName: user.displayName,
+      photoUrl: user.photoURL,
       email: user.email,
       uid: user.uid,
     },
