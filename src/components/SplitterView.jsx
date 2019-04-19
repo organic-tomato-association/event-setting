@@ -24,10 +24,9 @@ class SplitterView extends React.Component {
   render() {
     const { displayName } = this.props;
     const { photoUrl } = this.props;
-    console.log(photoUrl)
     return (
       <Page>
-        <div style={{ height: '220px', border: 'solid black 1px' }}>
+        <div style={{ height: '220px'  }}>
           <img src={photoUrl} alt="UserProfileImg" height="220px" />
         </div>
         <div>{displayName}</div>
