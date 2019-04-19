@@ -5,6 +5,7 @@
   "dependencies": {
     "dotenv": "^7.0.0",
     "firebase": "^5.9.1",
+    "install": "^0.12.2",
     "onsenui": "^2.10.6",
     "react": "^16.8.4",
     "react-display-switch": "^0.4.3",
@@ -34,6 +35,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "eslint-config-google": "^0.12.0",
+    "eslint-plugin-react": "^7.12.4",
     "firebase-tools": "^6.6.0"
   }
 }
