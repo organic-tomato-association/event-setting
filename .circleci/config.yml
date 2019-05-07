@@ -97,7 +97,7 @@ workflows:
             - build-job
       - deploy-job:
           requires:
-            - bold
+            - hold
           filters:
             branches:
               only:
