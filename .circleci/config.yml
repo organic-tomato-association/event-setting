@@ -111,14 +111,14 @@ workflows:
       - build-job:
           requires:
             - eslint
-      - slack-notification-approval-pending
+      - slack-notification-approval-pending:
           requires:
             - build-job
       - hold:
           type: approval
           requires:
             - slack-notification-approval-pending
-      - slack-notification-approved
+      - slack-notification-approved:
           requires:
             - hold
       - deploy-job:
