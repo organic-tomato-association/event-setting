@@ -91,7 +91,7 @@ workflows:
       - build-job:
           requires:
             - eslint
-      - hold
+      - hold:
           type: approval
           requires:
             - build-job
