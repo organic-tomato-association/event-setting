@@ -91,9 +91,13 @@ workflows:
       - build-job:
           requires:
             - eslint
-      - deploy-job:
+      - hold
+          type: approval
           requires:
             - build-job
+      - deploy-job:
+          requires:
+            - bold
           filters:
             branches:
               only:
