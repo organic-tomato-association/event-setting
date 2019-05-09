@@ -17,6 +17,7 @@ export function loginSuccess(user) {
     type: types.AUTH.LOGIN_SUCCESS,
     payload: {
       displayName: user.displayName,
+      photoUrl: user.photoURL,
       email: user.email,
       uid: user.uid,
     },

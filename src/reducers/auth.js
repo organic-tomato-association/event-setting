@@ -19,6 +19,7 @@ export default function auth(state = initialState, action) {
         ...state,
         uid: action.payload.uid,
         displayName: action.payload.displayName,
+        photoUrl: action.payload.photoUrl,
         email: action.payload.email,
       };
     case types.AUTH.LOGOUT:
