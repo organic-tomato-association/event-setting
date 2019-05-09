@@ -22,16 +22,18 @@ class SplitterView extends React.Component {
   }
 
   render() {
-    const { displayName } = this.props;
-    const { photoUrl } = this.props;
+    const { displayName, photoUrl, actions } = this.props;
     return (
       <Page>
-        <div style={{ height: '220px'  }}>
+        <div style={{ height: '220px' }}>
           <img src={photoUrl} alt="UserProfileImg" height="220px" />
         </div>
         <div>{displayName}</div>
         <List>
           <ListItem key={UserUpdate.name} onClick={this.pushPage.bind(this)}>ユーザー情報更新</ListItem>
+        </List>
+        <List style={{ marginTop: '20px' }}>
+          <ListItem onClick={() => actions.logout()}>ログアウト</ListItem>
         </List>
       </Page >
     );

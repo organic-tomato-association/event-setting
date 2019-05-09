@@ -36,9 +36,20 @@ function* refLoginSaga() {
   }
 }
 
+function* logoutSaga() {
+  try {
+    const data = yield call(reduxSagaFirebase.auth.signOut);
+    yield put(Actions.logoutSuccess(data));
+  }
+  catch (error) {
+    yield put(Actions.logoutFailure(error));
+  }
+}
+
 export default function* rootSaga() {
   yield all([
     takeEvery(types.AUTH.REF_LOGIN, refLoginSaga),
     takeEvery(types.AUTH.LOGIN, loginGithubSaga),
+    takeEvery(types.AUTH.LOGOUT, logoutSaga),
   ]);
 }
