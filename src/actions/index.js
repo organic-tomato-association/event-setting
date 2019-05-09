@@ -6,9 +6,15 @@ export function refLogin() {
   };
 }
 
-export function login() {
+export function loginGithub() {
   return {
-    type: types.AUTH.LOGIN,
+    type: types.AUTH.LOGIN_GITHUB,
+  }
+}
+
+export function loginGoogle() {
+  return {
+    type: types.AUTH.LOGIN_GOOGLE,
   }
 }
 

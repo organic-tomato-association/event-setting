@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { reduxSagaFirebase } from "../firebase";
 import { eventChannel } from 'redux-saga';
 import { all, call, put, take, takeEvery } from "@redux-saga/core/effects";
@@ -7,11 +7,22 @@ import * as Actions from '../actions';
 import * as types from '../constants/ActionTypes';
 
 const githubAuthProvider = new firebase.auth.GithubAuthProvider();
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
 // githubでログインする
 function* loginGithubSaga() {
   try {
     yield call(reduxSagaFirebase.auth.signInWithPopup, githubAuthProvider);
+    yield put(Actions.refLogin());
+  } catch (e) {
+    yield put(Actions.loginFailure(e));
+  }
+}
+
+// Googleでログインする
+function* loginGoogleSaga() {
+  try {
+    yield call(reduxSagaFirebase.auth.signInWithPopup, googleAuthProvider);
     yield put(Actions.refLogin());
   } catch (e) {
     yield put(Actions.loginFailure(e));
@@ -36,6 +47,7 @@ function* refLoginSaga() {
   }
 }
 
+// ログアウトする
 function* logoutSaga() {
   try {
     const data = yield call(reduxSagaFirebase.auth.signOut);
@@ -48,8 +60,9 @@ function* logoutSaga() {
 
 export default function* rootSaga() {
   yield all([
+    takeEvery(types.AUTH.LOGIN_GITHUB, loginGithubSaga),
+    takeEvery(types.AUTH.LOGIN_GOOGLE, loginGoogleSaga),
     takeEvery(types.AUTH.REF_LOGIN, refLoginSaga),
-    takeEvery(types.AUTH.LOGIN, loginGithubSaga),
     takeEvery(types.AUTH.LOGOUT, logoutSaga),
   ]);
 }
