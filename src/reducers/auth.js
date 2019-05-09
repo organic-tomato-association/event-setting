@@ -1,4 +1,4 @@
-import * as types from '../constants/ActionTypes'
+import * as types from '../constants/ActionTypes';
 
 // 初期化
 const initialState = {
@@ -14,14 +14,14 @@ const initialState = {
  */
 export default function auth(state = initialState, action) {
   switch (action.type) {
-    case types.LOGIN_OK:
+    case types.AUTH.LOGIN_SUCCESS:
       return {
         ...state,
         uid: action.payload.uid,
         displayName: action.payload.displayName,
         email: action.payload.email,
       };
-    case types.LOGOUT:
+    case types.AUTH.LOGOUT:
       return {
         ...state,
         uid: null,

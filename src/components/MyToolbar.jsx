@@ -7,7 +7,6 @@ import { Toolbar, BackButton, ToolbarButton, Icon } from 'react-onsenui';
 class MyToolbar extends React.Component {
   render() {
     const { title, navigator, actions } = this.props;
-    console.log(actions);
     return (
       <Toolbar>
         {navigator

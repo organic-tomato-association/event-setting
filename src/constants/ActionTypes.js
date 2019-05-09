@@ -1,5 +1,6 @@
-export const LOGIN_OK = 'LOGIN_OK';
-export const LOGOUT = 'LOGOUT';
+import * as auth from './auth';
+
+export const AUTH = auth;
 
 export const TAB_CHANGE = 'TAB_CHANGE';
 

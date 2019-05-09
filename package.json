@@ -3,20 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "dotenv": "^7.0.0",
-    "firebase": "^5.9.1",
+    "dotenv": "^8.0.0",
+    "firebase": "^6.0.1",
     "install": "^0.12.2",
-    "onsenui": "^2.10.6",
-    "react": "^16.8.4",
+    "onsenui": "^2.10.8",
+    "react": "^16.8.6",
     "react-display-switch": "^0.4.3",
-    "react-dom": "^16.8.4",
+    "react-dom": "^16.8.6",
     "react-onsenui": "^1.11.2",
-    "react-redux": "^6.0.1",
+    "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "2.1.8",
+    "react-scripts": "3.0.1",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.0.2",
+    "redux-saga-firebase": "^0.15.0",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
@@ -36,7 +37,8 @@
   ],
   "devDependencies": {
     "eslint-config-google": "^0.12.0",
-    "eslint-plugin-react": "^7.12.4",
-    "firebase-tools": "^6.6.0"
+    "eslint-plugin-react": "^7.13.0",
+    "firebase-tools": "^6.9.1",
+    "redux-devtools-extension": "^2.13.8"
   }
 }

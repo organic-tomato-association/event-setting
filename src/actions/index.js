@@ -1,13 +1,31 @@
 import * as types from '../constants/ActionTypes';
 
-export function loginOk(user) {
+export function login() {
   return {
-    type: types.LOGIN_OK,
+    type: types.AUTH.LOGIN,
+  }
+}
+
+export function refLogin() {
+  return {
+    type: types.AUTH.REF_LOGIN
+  };
+}
+
+export function loginSuccess(user) {
+  return {
+    type: types.AUTH.LOGIN_SUCCESS,
     payload: {
       displayName: user.displayName,
       email: user.email,
       uid: user.uid,
     },
+  };
+}
+
+export function loginFailure(e) {
+  return {
+    type: types.AUTH.LOGIN_FAILURE,
   };
 }
 
