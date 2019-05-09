@@ -18,7 +18,7 @@ class Auth extends Component {
     const { title, actions } = this.props;
     return (
       <Page
-        renderToolbar={this.renderToolbar.bind(this)}
+        renderToolbar={this.renderToolbar.bind(this, title)}
       >
         <section>
           <h1 style={{ textAlign: 'center' }}>Event Setting</h1>
