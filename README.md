@@ -2,7 +2,6 @@
 
 [![CircleCI](https://circleci.com/gh/organic-tomato-association/event-setting/tree/master.svg?style=svg)](https://circleci.com/gh/organic-tomato-association/event-setting/tree/master)
 
-
 ## What's This ?
 
 **Firebase**, **React.js**, **Onsen-UI**を使った.

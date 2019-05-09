@@ -21,7 +21,7 @@ export default function ui(state = initialState, action) {
         tab: action.id,
         title: title,
       };
-    case types.LOGIN_OK:
+    case types.AUTH.LOGIN_SUCCESS:
       return {
         ...state,
         title: 'Home',

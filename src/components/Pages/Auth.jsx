@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import * as Actions from '../../actions';
 import { Page } from 'react-onsenui';
 import MyToolbar from '../MyToolbar';
 
 class Auth extends Component {
   componentDidMount() {
-    this.props.refLogin()
+    this.props.actions.refLogin();
   }
 
   renderToolbar(title) {
@@ -15,12 +15,12 @@ class Auth extends Component {
   }
 
   render() {
-    const { title } = this.props;
+    const { title, actions } = this.props;
     return (
       <Page
         renderToolbar={this.renderToolbar.bind(this, title)}
       >
-        <button onClick={this.props.doGithubLogin}>Login</button>
+        <button onClick={() => actions.login()}>Login</button>
       </Page>
     )
   }
@@ -34,19 +34,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    doGithubLogin: () => {
-      let provider = new firebase.auth.GithubAuthProvider();
-      firebase.auth().signInWithPopup(provider)
-    },
-    refLogin: () => {
-      firebase.auth().onAuthStateChanged(user => {
-        if (!user) {
-          return
-        }
-        console.log(user);
-        dispatch(Actions.loginOk(user));
-      })
-    }
+    actions: bindActionCreators(Actions, dispatch),
   }
 }
 
