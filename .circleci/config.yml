@@ -68,6 +68,26 @@ jobs:
           root: build
           paths:
             - .
+  slack-notification-approval-pending:
+    executor:
+      name: default
+    steps:
+      - run:
+          name: 'send notification to slack'
+          command: |
+            curl -X POST -H 'Content-type: application/json' \
+              --data "{\"text\": \"Please approve workflow from <https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}|here>.\"}" \
+              $SLACK_WEBHOOK_URL
+  slack-notification-approved:
+    executor:
+      name: default
+    steps:
+      - run:
+          name: 'send notification to slack'
+          command: |
+            curl -X POST -H 'Content-type: application/json' \
+              --data "{\"text\": \"Approved workflow from <https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}|here>.\"}" \
+              $SLACK_WEBHOOK_URL
   deploy-job:
     executor:
       name: default
@@ -78,8 +98,6 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-      - run:
-          name: 'Install fairebase-tools'
       - attach_workspace:
           at: build
       - run:
@@ -93,10 +111,24 @@ workflows:
       - build-job:
           requires:
             - eslint
-      - deploy-job:
+      - hold:
+          type: approval
           requires:
             - build-job
           filters:
             branches:
               only:
                 - master
+      - slack-notification-approval-pending:
+          requires:
+            - build-job
+          filters:
+            branches:
+              only:
+                - master
+      - deploy-job:
+          requires:
+            - hold
+      - slack-notification-approved:
+          requires:
+            - hold
