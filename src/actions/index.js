@@ -1,15 +1,21 @@
 import * as types from '../constants/ActionTypes';
 
-export function login() {
-  return {
-    type: types.AUTH.LOGIN,
-  }
-}
-
 export function refLogin() {
   return {
     type: types.AUTH.REF_LOGIN
   };
+}
+
+export function loginGithub() {
+  return {
+    type: types.AUTH.LOGIN_GITHUB,
+  }
+}
+
+export function loginGoogle() {
+  return {
+    type: types.AUTH.LOGIN_GOOGLE,
+  }
 }
 
 export function loginSuccess(user) {
@@ -27,6 +33,30 @@ export function loginSuccess(user) {
 export function loginFailure(e) {
   return {
     type: types.AUTH.LOGIN_FAILURE,
+  };
+}
+
+export function logout() {
+  return {
+    type: types.AUTH.LOGOUT,
+  };
+}
+
+export function logoutSuccess(user) {
+  return {
+    type: types.AUTH.LOGOUT_SUCCESS,
+    payload: {
+      displayName: user.displayName,
+      photoUrl: user.photoURL,
+      email: user.email,
+      uid: user.uid,
+    },
+  };
+}
+
+export function logoutFailure(e) {
+  return {
+    type: types.AUTH.LOGOUT_FAILURE,
   };
 }
 
