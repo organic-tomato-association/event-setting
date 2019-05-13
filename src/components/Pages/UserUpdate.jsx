@@ -10,6 +10,17 @@ import MyToolbar from '../MyToolbar';
 
 class Body extends React.Component {
   static newName = '';
+
+  // ユーザー情報編集URLを設定
+  componentWillMount() {
+    this.props.actions.pagePush(`/user/edit`);
+  }
+
+  // 前のURLに戻す
+  componentWillUnmount() {
+    this.props.actions.pagePop();
+  }
+
   render() {
     const { displayName } = this.props;
     this.newName = displayName;
