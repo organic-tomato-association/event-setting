@@ -1,13 +1,51 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+import * as Actions from '../../actions';
+import { Page } from 'react-onsenui';
+
+import MyToolbar from '../MyToolbar';
 
 class NotFound extends React.Component {
+  componentDidMount() {
+    this.props.actions.pagePush(`/NotFound`);
+  }
+
+  componentWillUnmount() {
+    this.props.actions.pagePop();
+  }
+
   render() {
     return (
-      <div>
+      <Page
+        renderToolbar={this.renderToolbar.bind(this)}
+      >
         <h3>Not Found</h3>
-      </div>
+      </Page>
     );
+  }
+
+  renderToolbar() {
+    return React.createElement(MyToolbar, { navigator: this.props.navigator });
   }
 }
 
-export default NotFound;
+
+
+const mapStateToProps = (state) => {
+  return {
+    newEvents: state.data.newEvents,
+    url: state.ui.urlHistory[state.ui.urlHistory.length - 1],
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators(Actions, dispatch),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NotFound);

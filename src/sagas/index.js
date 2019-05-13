@@ -1,13 +1,15 @@
 import firebase from 'firebase/app';
 import { reduxSagaFirebase } from "../firebase";
 import { eventChannel } from 'redux-saga';
-import { all, call, put, take, takeEvery } from "@redux-saga/core/effects";
+import { all, call, put, take, takeEvery, select } from "@redux-saga/core/effects";
 
 import * as Actions from '../actions';
 import * as types from '../constants/ActionTypes';
 
 const githubAuthProvider = new firebase.auth.GithubAuthProvider();
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+
+const getUrl = (state) => state.ui.urlHistory[state.ui.urlHistory.length - 1];
 
 // githubでログインする
 function* loginGithubSaga() {
@@ -58,11 +60,28 @@ function* logoutSaga() {
   }
 }
 
+function* pagePushSaga() {
+  const url = yield select(getUrl);
+  yield call(() => {
+    window.history.pushState(null, '', url);
+  });
+}
+
+function* pagePopSaga() {
+
+  const url = yield select(getUrl);
+  yield call(() => {
+    window.history.pushState(null, '', url);
+  });
+}
+
 export default function* rootSaga() {
   yield all([
     takeEvery(types.AUTH.LOGIN_GITHUB, loginGithubSaga),
     takeEvery(types.AUTH.LOGIN_GOOGLE, loginGoogleSaga),
     takeEvery(types.AUTH.REF_LOGIN, refLoginSaga),
     takeEvery(types.AUTH.LOGOUT, logoutSaga),
+    takeEvery(types.PAGE.PUSH, pagePushSaga),
+    takeEvery(types.PAGE.POP, pagePopSaga),
   ]);
 }

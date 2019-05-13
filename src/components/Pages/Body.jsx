@@ -3,14 +3,55 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import * as Actions from '../../actions';
 import { Tabbar, Tab, Page } from 'react-onsenui';
+import { Route, Switch } from 'react-router-dom';
 
 import 'onsenui/css/onsenui.css';
 import 'onsenui/css/onsen-css-components.css';
 import MyToolbar from '../MyToolbar';
 import Home from './Tabs/Home';
 import MyPage from './Tabs/MyPage';
+import EventDetail from './EventDetail';
+import NotFound from './NotFound';
 
 class Body extends React.Component {
+  defaultLoad() {
+    this.props.actions.firstLoad();
+  }
+
+  notFound() {
+    this.props.actions.firstLoad();
+    if (this.props.isFirstLoad) {
+      this.props.navigator.pushPage({
+        component: NotFound,
+        props: {
+          key: 'NotFound',
+          title: '404 Not Found',
+          navigator: this.props.navigator,
+        },
+      });
+    }
+  }
+
+  pushPageEvent({ match }) {
+    const { newEvents } = this.props;
+    if (match.params.key in newEvents) {
+      if (this.props.isFirstLoad) {
+        this.props.actions.firstLoad();
+        this.props.navigator.pushPage({
+          component: EventDetail,
+          props: {
+            key: 'eventDetail',
+            event: match.params.key,
+            title: 'Event Detail',
+            navigator: this.props.navigator,
+          },
+        });
+      }
+    } else {
+      this.notFound();
+    }
+  }
+
   render() {
     const { tab, navigator, actions } = this.props;
     return (
@@ -32,7 +73,12 @@ class Body extends React.Component {
             }
           ]}
         ></Tabbar>
-      </Page>
+        <Switch>
+          <Route path='/' exact render={() => this.defaultLoad()} />
+          <Route path='/event/:key' exact render={res => this.pushPageEvent(res)} />
+          <Route exact render={() => this.notFound()} />
+        </Switch>
+      </Page >
     );
   }
   renderToolbar(navigator) {
@@ -44,6 +90,8 @@ class Body extends React.Component {
 const mapStateToProps = (state) => {
   return {
     tab: state.ui.tab,
+    newEvents: state.data.newEvents,
+    isFirstLoad: state.ui.isFirstLoad,
     onChange: Actions.tabChange,
   };
 }

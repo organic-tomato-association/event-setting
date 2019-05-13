@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import * as Actions from './actions';
 import { Navigator, Splitter, SplitterSide, SplitterContent } from 'react-onsenui';
+import { BrowserRouter } from 'react-router-dom';
 import { When } from 'react-display-switch';
 import { firebaseApp } from './firebase/index'; // eslint-disable-line no-unused-vars
 import './App.css';
@@ -22,34 +23,36 @@ class App extends Component {
   render() {
     const { uid, title, isShowSplitter, actions } = this.props;
     return (
-      <div>
-        {
-          uid
-            ? <Splitter>
-              <SplitterContent>
-                <Navigator
-                  swipeable
-                  initialRoute={
-                    { component: Body, props: { key: title } }
-                  }
-                  renderPage={this.renderPage}
-                  ref={(navigator) => { this.navigator = navigator; }}
-                />
-              </SplitterContent>
-              <SplitterSide
-                side='right'
-                width={220}
-                collapse={true}
-                swipeable={true}
-                isOpen={isShowSplitter}
-                onClose={() => actions.closeSplitter()}
-                onOpen={() => actions.openSplitter()}>
-                <SplitterView navigator={this.navigator} />
-              </SplitterSide>
-            </Splitter>
-            : <Auth title={'Event Setting'} />
-        }
-      </div>
+      <BrowserRouter>
+        <div>
+          {
+            uid
+              ? <Splitter>
+                <SplitterContent>
+                  <Navigator
+                    swipeable
+                    initialRoute={
+                      { component: Body, props: { key: title } }
+                    }
+                    renderPage={this.renderPage}
+                    ref={(navigator) => { this.navigator = navigator; }}
+                  />
+                </SplitterContent>
+                <SplitterSide
+                  side='right'
+                  width={220}
+                  collapse={true}
+                  swipeable={true}
+                  isOpen={isShowSplitter}
+                  onClose={() => actions.closeSplitter()}
+                  onOpen={() => actions.openSplitter()}>
+                  <SplitterView navigator={this.navigator} />
+                </SplitterSide>
+              </Splitter>
+              : <Auth title={'Event Setting'} />
+          }
+        </div>
+      </BrowserRouter>
     );
   }
 

@@ -5,8 +5,24 @@ import * as Actions from '../../actions';
 import { Page, Card } from 'react-onsenui';
 
 import MyToolbar from '../MyToolbar';
+import NotFound from './NotFound';
 
 class Body extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentWillMount() {
+    const { event, newEvents } = this.props;
+    if (newEvents[event]) {
+      this.props.actions.pagePush(`/event/${event}`);
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.actions.pagePop();
+  }
+
   render() {
     const { event, newEvents } = this.props;
     console.log(this.props.navigator)
@@ -31,6 +47,7 @@ class Body extends React.Component {
 const mapStateToProps = (state) => {
   return {
     newEvents: state.data.newEvents,
+    url: state.ui.urlHistory[state.ui.urlHistory.length - 1],
   };
 }
 

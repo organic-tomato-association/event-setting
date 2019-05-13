@@ -5,6 +5,10 @@ const initialState = {
   title: 'Login',
   tab: 0,
   isShowSplitter: false,
+  isFirstLoad: true,
+  urlHistory: [
+    '/',
+  ],
 };
 
 /**
@@ -36,6 +40,17 @@ export default function ui(state = initialState, action) {
         ...state,
         isShowSplitter: false,
       };
+    case types.PAGE.PUSH:
+      state.urlHistory.push(action.url);
+      return state;
+    case types.PAGE.POP:
+      state.urlHistory.pop();
+      return state;
+    case types.PAGE.FIRST_LOAD:
+      return {
+        ...state,
+        isFirstLoad: false,
+      }
     default:
       return state;
   }

@@ -60,6 +60,25 @@ export function logoutFailure(e) {
   };
 }
 
+export function pagePush(url) {
+  return {
+    type: types.PAGE.PUSH,
+    url,
+  };
+}
+
+export function pagePop() {
+  return {
+    type: types.PAGE.POP,
+  };
+}
+
+export function firstLoad() {
+  return {
+    type: types.PAGE.FIRST_LOAD,
+  }
+}
+
 export function tabChange(id) {
   return {
     type: types.TAB_CHANGE,

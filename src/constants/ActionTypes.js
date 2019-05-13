@@ -1,6 +1,8 @@
 import * as auth from './auth';
+import * as page from './page';
 
 export const AUTH = auth;
+export const PAGE = page;
 
 export const TAB_CHANGE = 'TAB_CHANGE';
 
