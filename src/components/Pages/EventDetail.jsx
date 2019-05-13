@@ -5,13 +5,8 @@ import * as Actions from '../../actions';
 import { Page, Card } from 'react-onsenui';
 
 import MyToolbar from '../MyToolbar';
-import NotFound from './NotFound';
 
 class Body extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount() {
     const { event, newEvents } = this.props;
     if (newEvents[event]) {
