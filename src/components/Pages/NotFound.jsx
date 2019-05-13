@@ -7,10 +7,12 @@ import { Page } from 'react-onsenui';
 import MyToolbar from '../MyToolbar';
 
 class NotFound extends React.Component {
+  // NotFoundのURLを設定
   componentDidMount() {
     this.props.actions.pagePush(`/NotFound`);
   }
 
+  // 前のURLに戻す
   componentWillUnmount() {
     this.props.actions.pagePop();
   }

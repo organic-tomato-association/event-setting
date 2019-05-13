@@ -7,6 +7,7 @@ import { Page, Card } from 'react-onsenui';
 import MyToolbar from '../MyToolbar';
 
 class Body extends React.Component {
+  // イベントのURLを設定
   componentWillMount() {
     const { event, newEvents } = this.props;
     if (newEvents[event]) {
@@ -14,6 +15,7 @@ class Body extends React.Component {
     }
   }
 
+  // 前のURLに戻す
   componentWillUnmount() {
     this.props.actions.pagePop();
   }

@@ -14,10 +14,12 @@ import EventDetail from './EventDetail';
 import NotFound from './NotFound';
 
 class Body extends React.Component {
+  // ルートディレクトリの場合
   defaultLoad() {
     this.props.actions.firstLoad();
   }
 
+  // ルーティングにヒットしなかった場合
   notFound() {
     this.props.actions.firstLoad();
     if (this.props.isFirstLoad) {
@@ -32,9 +34,12 @@ class Body extends React.Component {
     }
   }
 
+  // イベント詳細の場合
   pushPageEvent({ match }) {
     const { newEvents } = this.props;
+    // イベントが存在するか
     if (match.params.key in newEvents) {
+      // 初回の表示の場合にpushPageする
       if (this.props.isFirstLoad) {
         this.props.actions.firstLoad();
         this.props.navigator.pushPage({
@@ -74,8 +79,11 @@ class Body extends React.Component {
           ]}
         ></Tabbar>
         <Switch>
+          {/* ルートURLのルーティング */}
           <Route path='/' exact render={() => this.defaultLoad()} />
+          {/* イベント詳細のルーティング */}
           <Route path='/event/:key' exact render={res => this.pushPageEvent(res)} />
+          {/* ルーティングにヒットしなかった場合のルーティング */}
           <Route exact render={() => this.notFound()} />
         </Switch>
       </Page >
