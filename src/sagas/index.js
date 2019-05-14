@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 import '@firebase/firestore';
-import { reduxSagaFirebase } from "../firebase";
+import { reduxSagaFirebase, db } from "../firebase";
 import { eventChannel } from 'redux-saga';
 import { all, call, fork, put, take, takeEvery, select } from "@redux-saga/core/effects";
 
@@ -82,7 +82,7 @@ function* pagePopSaga() {
 
 // イベントコレクションが更新されたら取得
 function* syncEventsSaga() {
-  const channel = reduxSagaFirebase.firestore.channel('events');
+  const channel = reduxSagaFirebase.firestore.channel(db.collection("events").orderBy('created_at', 'desc'));
   while (true) {
     try {
       const snapshot = yield take(channel);
