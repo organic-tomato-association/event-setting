@@ -1,8 +1,10 @@
 import * as auth from './auth';
 import * as page from './page';
+import * as firestore from './firestore';
 
 export const AUTH = auth;
 export const PAGE = page;
+export const FIRESTORE = firestore;
 
 export const TAB_CHANGE = 'TAB_CHANGE';
 

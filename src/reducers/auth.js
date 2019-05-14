@@ -2,6 +2,7 @@ import * as types from '../constants/ActionTypes';
 
 // 初期化
 const initialState = {
+  isLoggedIn: false,
   uid: null,
   displayName: null,
   email: null,
@@ -33,6 +34,11 @@ export default function auth(state = initialState, action) {
       return {
         ...state,
         displayName: action.displayName,
+      };
+    case types.AUTH.SET_LOGGED_IN:
+      return {
+        ...state,
+        isLoggedIn: true,
       };
     default:
       return state;

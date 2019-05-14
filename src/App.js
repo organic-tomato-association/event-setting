@@ -21,12 +21,12 @@ When.case('screen_lg', () => window.innerWidth >= 992)
 
 class App extends Component {
   render() {
-    const { uid, title, isShowSplitter, actions } = this.props;
+    const { isLoggedIn, title, isShowSplitter, actions, uid } = this.props;
     return (
       <BrowserRouter>
         <div>
           {
-            uid
+            isLoggedIn && uid
               ? <Splitter>
                 <SplitterContent>
                   <Navigator
@@ -65,6 +65,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    isLoggedIn: state.auth.isLoggedIn,
     uid: state.auth.uid,
     title: state.ui.title,
     isShowSplitter: state.ui.isShowSplitter,

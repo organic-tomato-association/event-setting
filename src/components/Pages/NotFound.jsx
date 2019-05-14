@@ -32,12 +32,8 @@ class NotFound extends React.Component {
   }
 }
 
-
-
 const mapStateToProps = (state) => {
   return {
-    newEvents: state.data.newEvents,
-    url: state.ui.urlHistory[state.ui.urlHistory.length - 1],
   };
 }
 

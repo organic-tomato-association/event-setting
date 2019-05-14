@@ -19,18 +19,18 @@ class Home extends React.Component {
   }
 
   render() {
-    const { newEvents } = this.props;
+    const { events } = this.props;
     return (
       <Page>
         <section>
           <h2 style={{ textAlign: 'center' }}>Event</h2>
           <div>
             <Row>
-              {Object.keys(newEvents).map((key) => (
-                <Col width={"50%"} key={key}>
-                  <Card onClick={this.pushPage.bind(this, key)}>
-                    <h5>{newEvents[key].name}</h5>
-                    <p>{newEvents[key].description}</p>
+              {events.map((event) => (
+                <Col width={"50%"} key={event.id}>
+                  <Card onClick={this.pushPage.bind(this, event.id)}>
+                    <h5>{event.name}</h5>
+                    <p>{event.description}</p>
                   </Card>
                 </Col>
               ))}
@@ -44,7 +44,7 @@ class Home extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    newEvents: state.data.newEvents,
+    events: state.data.events,
   };
 }
 

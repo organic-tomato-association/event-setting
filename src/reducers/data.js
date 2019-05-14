@@ -1,30 +1,11 @@
+import * as types from '../constants/ActionTypes';
+
 // TODO: イベント作成時にコメント削除
 // import * as types from '../constants/ActionTypes'
 
 // 初期化
 const initialState = {
-  newEvents: {
-    aaaa: {
-      name: 'event1',
-      description: 'event1',
-    },
-    bbbb: {
-      name: 'event2',
-      description: 'event2',
-    },
-    cccc: {
-      name: 'event3',
-      description: 'event3',
-    },
-    dddd: {
-      name: 'event4',
-      description: 'event4',
-    },
-    eeee: {
-      name: 'event5',
-      description: 'event5',
-    },
-  }
+  events: {},
 };
 
 /**
@@ -34,6 +15,11 @@ const initialState = {
  */
 export default function data(state = initialState, action) {
   switch (action.type) {
+    case types.FIRESTORE.SYNC_EVENTS:
+      return {
+        ...state,
+        events: action.events,
+      };
     default:
       return state;
   }

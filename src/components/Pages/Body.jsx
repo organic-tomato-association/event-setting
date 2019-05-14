@@ -12,6 +12,7 @@ import Home from './Tabs/Home';
 import MyPage from './Tabs/MyPage';
 import EventDetail from './EventDetail';
 import NotFound from './NotFound';
+import EventCreate from './EventCreate';
 
 class Body extends React.Component {
   // ルートディレクトリの場合
@@ -30,15 +31,15 @@ class Body extends React.Component {
           title: '404 Not Found',
           navigator: this.props.navigator,
         },
-      });
+      }, { animation: 'none' });
     }
   }
 
   // イベント詳細の場合
-  pushPageEvent({ match }) {
-    const { newEvents } = this.props;
+  pushPageEventDetail({ match }) {
+    const { events } = this.props;
     // イベントが存在するか
-    if (match.params.key in newEvents) {
+    if (events.find(event => event.id === match.params.key)) {
       // 初回の表示の場合にpushPageする
       if (this.props.isFirstLoad) {
         this.props.actions.firstLoad();
@@ -50,10 +51,24 @@ class Body extends React.Component {
             title: 'Event Detail',
             navigator: this.props.navigator,
           },
-        });
+        }, { animation: 'none' });
       }
     } else {
       this.notFound();
+    }
+  }
+
+  pushPageEventCreate() {
+    if (this.props.isFirstLoad) {
+      this.props.actions.firstLoad();
+      this.props.navigator.pushPage({
+        component: EventCreate,
+        props: {
+          key: 'EventCreate',
+          title: 'イベント作成',
+          navigator: this.props.navigator,
+        },
+      }, { animation: 'none' });
     }
   }
 
@@ -82,7 +97,9 @@ class Body extends React.Component {
           {/* ルートURLのルーティング */}
           <Route path='/' exact render={() => this.defaultLoad()} />
           {/* イベント詳細のルーティング */}
-          <Route path='/event/:key' exact render={res => this.pushPageEvent(res)} />
+          <Route path='/event/:key' exact render={res => this.pushPageEventDetail(res)} />
+
+          <Route path='/event/create' exact render={res => this.pushPageEventCreate(res)} />
           {/* ルーティングにヒットしなかった場合のルーティング */}
           <Route exact render={() => this.notFound()} />
         </Switch>
@@ -98,7 +115,7 @@ class Body extends React.Component {
 const mapStateToProps = (state) => {
   return {
     tab: state.ui.tab,
-    newEvents: state.data.newEvents,
+    events: state.data.events,
     isFirstLoad: state.ui.isFirstLoad,
     onChange: Actions.tabChange,
   };
