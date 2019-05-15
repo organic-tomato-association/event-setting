@@ -16,7 +16,7 @@ class Body extends React.Component {
     };
   }
   // イベントのURLを設定
-  componentWillMount() {
+  componentDidMount() {
     this.props.actions.pagePush(`/event/create`);
   }
 

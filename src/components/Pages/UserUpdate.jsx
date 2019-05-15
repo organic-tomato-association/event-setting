@@ -12,7 +12,7 @@ class Body extends React.Component {
   static newName = '';
 
   // ユーザー情報編集URLを設定
-  componentWillMount() {
+  componentDidMount() {
     this.props.actions.pagePush(`/user/edit`);
   }
 

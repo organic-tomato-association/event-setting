@@ -110,7 +110,7 @@ function* createEventSaga(action) {
   event.created_by = yield select(getUserId);
   event.created_at = firebase.firestore.FieldValue.serverTimestamp();
   try {
-    yield call(reduxSagaFirebase.firestore.addDocument, `events`, event);
+    yield call(reduxSagaFirebase.firestore.addDocument, 'events', event);
   } catch (error) {
     console.error(error);
   }
