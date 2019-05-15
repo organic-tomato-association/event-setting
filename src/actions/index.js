@@ -155,3 +155,14 @@ export function updateEvent(id, event) {
     },
   };
 }
+
+// イベントの削除
+export function deleteEvent(id, event) {
+  return {
+    type: types.FIRESTORE.DELETE_EVENT,
+    payload: {
+      id,
+      event,
+    },
+  };
+}

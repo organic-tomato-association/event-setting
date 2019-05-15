@@ -96,10 +96,9 @@ class Body extends React.Component {
         <Switch>
           {/* ルートURLのルーティング */}
           <Route path='/' exact render={() => this.defaultLoad()} />
-          {/* イベント詳細のルーティング */}
-          <Route path='/event/:key' exact render={res => this.pushPageEventDetail(res)} />
-
           <Route path='/event/create' exact render={res => this.pushPageEventCreate(res)} />
+          {/* イベント詳細のルーティング */}
+          <Route path='/event/detail/:key' exact render={res => this.pushPageEventDetail(res)} />
           {/* ルーティングにヒットしなかった場合のルーティング */}
           <Route exact render={() => this.notFound()} />
         </Switch>

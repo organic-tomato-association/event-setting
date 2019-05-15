@@ -104,6 +104,18 @@ function* syncEventsSaga() {
   }
 }
 
+// イベント情報を作成する
+function* createEventSaga(action) {
+  const { event } = action.payload;
+  event.created_by = yield select(getUserId);
+  event.created_at = firebase.firestore.FieldValue.serverTimestamp();
+  try {
+    yield call(reduxSagaFirebase.firestore.addDocument, `events`, event);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 // イベント情報を更新する
 function* updateEventSaga(action) {
   const { id, event } = action.payload;
@@ -118,16 +130,16 @@ function* updateEventSaga(action) {
   }
 }
 
-
-// イベント情報を更新する
-function* createEventSaga(action) {
-  const { event } = action.payload;
-  event.created_by = yield select(getUserId);
-  event.created_at = firebase.firestore.FieldValue.serverTimestamp();
-  try {
-    yield call(reduxSagaFirebase.firestore.addDocument, `events`, event);
-  } catch (error) {
-    console.error(error);
+// イベント情報を削除する
+function* deleteEventSaga(action) {
+  const { id, event } = action.payload;
+  const uid = yield select(getUserId);
+  if (event.created_by === uid) {
+    try {
+      yield call(reduxSagaFirebase.firestore.deleteDocument, `events/${id}`);
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
 
@@ -141,5 +153,6 @@ export default function* rootSaga() {
     takeEvery(types.PAGE.POP, pagePopSaga),
     takeEvery(types.FIRESTORE.CREATE_EVENT, createEventSaga),
     takeEvery(types.FIRESTORE.UPDATE_EVENT, updateEventSaga),
+    takeEvery(types.FIRESTORE.DELETE_EVENT, deleteEventSaga),
   ]);
 }

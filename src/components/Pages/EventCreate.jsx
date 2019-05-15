@@ -9,7 +9,7 @@ import MyToolbar from '../MyToolbar';
 class Body extends React.Component {
   constructor() {
     super();
-    this.displayEvent = {
+    this.state = {
       name: '',
       description: '',
       member: [],
@@ -26,7 +26,7 @@ class Body extends React.Component {
   }
 
   createEvent() {
-    this.props.actions.createEvent(this.displayEvent);
+    this.props.actions.createEvent(this.state);
     this.props.navigator.popPage();
   }
 
@@ -42,8 +42,13 @@ class Body extends React.Component {
             </div>
             <div style={{ margin: '8px' }}>
               <Input
-                value={this.displayEvent.name}
-                onChange={(e) => this.displayEvent.name = e.target.value}
+                value={this.state.name}
+                onChange={(e) => {
+                  this.setState({
+                    ...this.state,
+                    name: e.target.value,
+                  });
+                }}
                 modifier='material'
                 type="text"
               />
@@ -55,15 +60,20 @@ class Body extends React.Component {
             </div>
             <div style={{ margin: '8px' }}>
               <Input
-                value={this.displayEvent.description}
-                onChange={(e) => this.displayEvent.description = e.target.value}
+                value={this.state.description}
+                onChange={(e) => {
+                  this.setState({
+                    ...this.state,
+                    description: e.target.value,
+                  });
+                }}
                 modifier='material'
                 type="text"
               />
             </div>
           </div>
           <p style={{ textAlign: 'center' }}>
-            <Button onClick={() => this.createEvent()}>作成</Button>
+            <Button onClick={() => this.createEvent()} disabled={this.state.name === ''}>作成</Button>
           </p>
         </section>
       </Page >
