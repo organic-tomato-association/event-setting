@@ -1,12 +1,12 @@
 service cloud.firestore {
   match /databases/{database}/documents {
     match /events/{eventDocument} {
-    	allow read: if request.auth != null;
-    	allow create: if request.auth != null && request.data.name != '';
-      allow update: if request.auth.uid == resource.data.created_by;
+      allow read: if request.auth != null;
+      allow create: if request.auth != null && request.data.name != '';
+      allow update, delete: if request.auth.uid == resource.data.created_by;
     }
     match /users/{userId} {
-    	allow read, create: if request.auth != null;
+      allow read, create: if request.auth != null;
       allow update: if request.auth.uid == userId;
     }
   }
