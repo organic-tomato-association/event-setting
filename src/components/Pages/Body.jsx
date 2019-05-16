@@ -13,6 +13,7 @@ import MyPage from './Tabs/MyPage';
 import EventDetail from './EventDetail';
 import NotFound from './NotFound';
 import EventCreate from './EventCreate';
+import UserUpdate from './UserUpdate';
 
 class Body extends React.Component {
   // ルートディレクトリの場合
@@ -37,6 +38,20 @@ class Body extends React.Component {
     }
   }
 
+  pushPageUserEdit() {
+    if (this.props.isFirstLoad) {
+      this.props.actions.firstLoad();
+      this.props.navigator.pushPage({
+        component: UserUpdate,
+        props: {
+          key: 'userUpdate',
+          title: 'ユーザー設定',
+          navigator: this.props.navigator,
+        },
+      }, { animation: 'none' });
+    }
+  }
+
   // イベント詳細の場合
   pushPageEventDetail({ match }) {
     const { events } = this.props;
@@ -50,7 +65,7 @@ class Body extends React.Component {
           props: {
             key: 'eventDetail',
             event: match.params.key,
-            title: 'Event Detail',
+            title: 'イベント',
             navigator: this.props.navigator,
           },
         }, { animation: 'none' });
@@ -99,6 +114,8 @@ class Body extends React.Component {
         <Switch>
           {/* ルートURLのルーティング */}
           <Route path='/' exact render={() => this.defaultLoad()} />
+          {/* ユーザー情報更新のルーティング */}
+          <Route path='/user/edit' render={res => this.pushPageUserEdit(res)} />
           {/* イベント作成のルーティング */}
           <Route path='/event/create' exact render={res => this.pushPageEventCreate(res)} />
           {/* イベント詳細のルーティング */}

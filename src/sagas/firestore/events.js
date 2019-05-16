@@ -1,5 +1,4 @@
 import firebase from 'firebase/app';
-import '@firebase/firestore';
 import { reduxSagaFirebase, db } from "../../firebase";
 import { call, put, take, takeEvery, select } from "@redux-saga/core/effects";
 
@@ -67,7 +66,7 @@ function* deleteEventSaga(action) {
 }
 
 export default [
-  takeEvery(types.FIRESTORE.CREATE_EVENT, createEventSaga),
-  takeEvery(types.FIRESTORE.UPDATE_EVENT, updateEventSaga),
-  takeEvery(types.FIRESTORE.DELETE_EVENT, deleteEventSaga),
+  takeEvery(types.FIRESTORE.EVENTS.CREATE, createEventSaga),
+  takeEvery(types.FIRESTORE.EVENTS.UPDATE, updateEventSaga),
+  takeEvery(types.FIRESTORE.EVENTS.DELETE, deleteEventSaga),
 ];

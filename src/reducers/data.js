@@ -6,6 +6,7 @@ import * as types from '../constants/ActionTypes';
 // 初期化
 const initialState = {
   events: {},
+  users: {},
 };
 
 /**
@@ -15,10 +16,15 @@ const initialState = {
  */
 export default function data(state = initialState, action) {
   switch (action.type) {
-    case types.FIRESTORE.SYNC_EVENTS:
+    case types.FIRESTORE.EVENTS.SYNC:
       return {
         ...state,
-        events: action.events,
+        events: action.payload.events,
+      };
+    case types.FIRESTORE.USERS.SYNC:
+      return {
+        ...state,
+        users: action.payload.users,
       };
     default:
       return state;

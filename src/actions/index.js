@@ -130,15 +130,17 @@ export function updateDisplayName(displayName) {
 // イベントコレクションの同期
 export function syncEvents(events) {
   return {
-    type: types.FIRESTORE.SYNC_EVENTS,
-    events,
+    type: types.FIRESTORE.EVENTS.SYNC,
+    payload: {
+      events,
+    },
   };
 }
 
 // イベント作成
 export function createEvent(event) {
   return {
-    type: types.FIRESTORE.CREATE_EVENT,
+    type: types.FIRESTORE.EVENTS.CREATE,
     payload: {
       event,
     },
@@ -148,7 +150,7 @@ export function createEvent(event) {
 // イベントの更新
 export function updateEvent(id, event) {
   return {
-    type: types.FIRESTORE.UPDATE_EVENT,
+    type: types.FIRESTORE.EVENTS.UPDATE,
     payload: {
       id,
       event,
@@ -159,10 +161,20 @@ export function updateEvent(id, event) {
 // イベントの削除
 export function deleteEvent(id, event) {
   return {
-    type: types.FIRESTORE.DELETE_EVENT,
+    type: types.FIRESTORE.EVENTS.DELETE,
     payload: {
       id,
       event,
+    },
+  };
+}
+
+// ユーザーコレクション同期
+export function syncUsers(users) {
+  return {
+    type: types.FIRESTORE.USERS.SYNC,
+    payload: {
+      users,
     },
   };
 }

@@ -15,8 +15,8 @@ class SplitterView extends React.Component {
       this.props.navigator.pushPage({
         component: UserUpdate,
         props: {
-          key: 'userUpdate',
-          title: 'User',
+          key: 'ユーザー設定',
+          title: 'ユーザー設定',
           navigator: this.props.navigator,
         },
       });
@@ -30,7 +30,7 @@ class SplitterView extends React.Component {
       this.props.navigator.pushPage({
         component: EventCreate,
         props: {
-          key: 'eventCreate',
+          key: 'イベント作成',
           title: 'イベント作成',
           navigator: this.props.navigator,
         },
