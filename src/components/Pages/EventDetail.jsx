@@ -57,7 +57,6 @@ class Body extends React.Component {
   render() {
     const { event, events, uid } = this.props;
     this.displayEvent = events.find(e => e.id === event) || { name: '', description: '' };
-    console.log(this.props.navigator)
     return (
       <Page
         renderToolbar={this.renderToolbar.bind(this)}

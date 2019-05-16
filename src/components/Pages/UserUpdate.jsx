@@ -24,7 +24,6 @@ class Body extends React.Component {
   render() {
     const { displayName } = this.props;
     this.newName = displayName;
-    console.log(this.props.navigator)
     return (
       <Page
         renderToolbar={this.renderToolbar.bind(this)}
