@@ -17,13 +17,15 @@ import EventCreate from './EventCreate';
 class Body extends React.Component {
   // ルートディレクトリの場合
   defaultLoad() {
-    this.props.actions.firstLoad();
+    if (this.props.isFirstLoad) {
+      this.props.actions.firstLoad();
+    }
   }
 
   // ルーティングにヒットしなかった場合
   notFound() {
-    this.props.actions.firstLoad();
     if (this.props.isFirstLoad) {
+      this.props.actions.firstLoad();
       this.props.navigator.pushPage({
         component: NotFound,
         props: {
@@ -58,6 +60,7 @@ class Body extends React.Component {
     }
   }
 
+  // イベント作成の場合
   pushPageEventCreate() {
     if (this.props.isFirstLoad) {
       this.props.actions.firstLoad();
