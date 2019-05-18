@@ -2,23 +2,98 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import * as Actions from '../../actions';
-import { Page, Card } from 'react-onsenui';
+import { Button, Card, AlertDialog, Page } from 'react-onsenui';
 
 import MyToolbar from '../MyToolbar';
+import EventEdit from './EventEdit';
 
-class Body extends React.Component {
+class EventDetail extends React.Component {
+  static displayEvent = {};
+
+  constructor() {
+    super();
+    this.state = {
+      isShowDeleteDialog: false,
+    };
+  }
+
+  // イベントのURLを設定
+  componentWillMount() {
+    const { event, events } = this.props;
+    this.event = events.find(e => e.id === event) || { name: '', description: '' };
+    if (events.find(e => e.id === event)) {
+      this.props.actions.pagePush(`/event/detail/${event}`);
+    }
+  }
+
+  // 前のURLに戻す
+  componentWillUnmount() {
+    this.props.actions.pagePop();
+  }
+
+  pushPage(key) {
+    this.props.navigator.pushPage({
+      component: EventEdit,
+      props: {
+        key: 'eventEdit',
+        event: key,
+        title: 'Event Edit',
+        navigator: this.props.navigator,
+      },
+    });
+  }
+
+  onCancelDialog() {
+    this.setState({ isShowDeleteDialog: false });
+  }
+
+  onAcceptDialog() {
+    const { event } = this.props;
+    this.setState({ isShowDeleteDialog: false });
+    this.props.actions.deleteEvent(event, this.displayEvent);
+    this.props.navigator.popPage();
+  }
+
   render() {
-    const { event, newEvents } = this.props;
-    console.log(this.props.navigator)
+    const { event, events, uid } = this.props;
+    this.displayEvent = events.find(e => e.id === event) || { name: '', description: '' };
     return (
       <Page
         renderToolbar={this.renderToolbar.bind(this)}
       >
         <Card>
-          <h2>{newEvents[event].name}</h2>
-          <p>{newEvents[event].description}</p>
+          <h2>{this.displayEvent.name}</h2>
+          <p>{this.displayEvent.description}</p>
         </Card>
-      </Page>
+        <AlertDialog
+          isOpen={this.state.isShowDeleteDialog}
+          onCancel={() => this.onCancelDialog()}
+          cancelable
+        >
+          <div className="alert-dialog-title">注意</div>
+          <div className="alert-dialog-content">
+            {this.displayEvent.name} を削除します。
+          </div>
+          <div className="alert-dialog-footer">
+            <Button onClick={() => this.onCancelDialog()} className="alert-dialog-button">
+              Cancel
+            </Button>
+            <Button onClick={() => this.onAcceptDialog()} className="alert-dialog-button">
+              Ok
+            </Button>
+          </div>
+        </AlertDialog>
+        {
+          uid === this.displayEvent.created_by
+            ? (
+              <div style={{ textAlign: 'center' }}>
+                <Button onClick={this.pushPage.bind(this, event)}>編集</Button>
+                <Button onClick={() => this.setState({ isShowDeleteDialog: true })}>削除</Button>
+              </div>
+            )
+            : ''
+        }
+      </Page >
     );
   }
 
@@ -30,7 +105,9 @@ class Body extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    newEvents: state.data.newEvents,
+    events: state.data.events,
+    uid: state.auth.uid,
+    url: state.ui.urlHistory[state.ui.urlHistory.length - 1],
   };
 }
 
@@ -43,4 +120,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Body);
+)(EventDetail);

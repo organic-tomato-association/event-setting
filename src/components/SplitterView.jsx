@@ -3,18 +3,35 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import * as Actions from '../actions';
 import { Page, List, ListItem } from 'react-onsenui';
+
 import UserUpdate from './Pages/UserUpdate';
+import EventCreate from './Pages/EventCreate';
 
 class SplitterView extends React.Component {
-  pushPage() {
+  pushPageUserUpdate() {
     this.props.actions.closeSplitter();
     const pages = this.props.navigator.pages;
     if (pages[pages.length - 1].key !== 'userUpdate') {
       this.props.navigator.pushPage({
         component: UserUpdate,
         props: {
-          key: 'userUpdate',
-          title: 'User',
+          key: 'ユーザー設定',
+          title: 'ユーザー設定',
+          navigator: this.props.navigator,
+        },
+      });
+    }
+  }
+
+  pushPageEventCreate() {
+    this.props.actions.closeSplitter();
+    const pages = this.props.navigator.pages;
+    if (pages[pages.length - 1].key !== 'eventCreate') {
+      this.props.navigator.pushPage({
+        component: EventCreate,
+        props: {
+          key: 'イベント作成',
+          title: 'イベント作成',
           navigator: this.props.navigator,
         },
       });
@@ -28,9 +45,13 @@ class SplitterView extends React.Component {
         <div style={{ height: '220px' }}>
           <img src={photoUrl} alt="UserProfileImg" height="220px" />
         </div>
-        <div>{displayName}</div>
+        <h4>{displayName}</h4>
         <List>
-          <ListItem key={UserUpdate.name} onClick={this.pushPage.bind(this)}>ユーザー情報更新</ListItem>
+          <ListItem key={UserUpdate.name} onClick={this.pushPageUserUpdate.bind(this)}>ユーザー情報更新</ListItem>
+        </List>
+        <h3>Event</h3>
+        <List>
+          <ListItem key={EventCreate.name} onClick={this.pushPageEventCreate.bind(this)}>イベント作成</ListItem>
         </List>
         <List style={{ marginTop: '20px' }}>
           <ListItem onClick={() => actions.logout()}>ログアウト</ListItem>

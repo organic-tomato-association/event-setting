@@ -13,7 +13,7 @@ class MyToolbar extends React.Component {
           ? <div className="left">
             {
               1 < navigator.routes.length
-                ? <BackButton>{navigator.routes[navigator.routes.length - 2].props.key}</BackButton>
+                ? <BackButton>{navigator.routes[navigator.routes.length - 2].props.title}</BackButton>
                 : null
             }
           </div>

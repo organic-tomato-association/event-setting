@@ -5,4 +5,6 @@ import ReduxSagaFirebase from 'redux-saga-firebase';
 
 export const firebaseApp = firebase.initializeApp(firebaseConfig);
 
+export const db = firebase.firestore();
+
 export const reduxSagaFirebase = new ReduxSagaFirebase(firebaseApp);

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import * as Actions from './actions';
 import { Navigator, Splitter, SplitterSide, SplitterContent } from 'react-onsenui';
+import { BrowserRouter } from 'react-router-dom';
 import { When } from 'react-display-switch';
 import { firebaseApp } from './firebase/index'; // eslint-disable-line no-unused-vars
 import './App.css';
@@ -20,36 +21,38 @@ When.case('screen_lg', () => window.innerWidth >= 992)
 
 class App extends Component {
   render() {
-    const { uid, title, isShowSplitter, actions } = this.props;
+    const { isLoggedIn, title, isShowSplitter, actions, uid } = this.props;
     return (
-      <div>
-        {
-          uid
-            ? <Splitter>
-              <SplitterContent>
-                <Navigator
-                  swipeable
-                  initialRoute={
-                    { component: Body, props: { key: title } }
-                  }
-                  renderPage={this.renderPage}
-                  ref={(navigator) => { this.navigator = navigator; }}
-                />
-              </SplitterContent>
-              <SplitterSide
-                side='right'
-                width={220}
-                collapse={true}
-                swipeable={true}
-                isOpen={isShowSplitter}
-                onClose={() => actions.closeSplitter()}
-                onOpen={() => actions.openSplitter()}>
-                <SplitterView navigator={this.navigator} />
-              </SplitterSide>
-            </Splitter>
-            : <Auth title={'Event Setting'} />
-        }
-      </div>
+      <BrowserRouter>
+        <div>
+          {
+            isLoggedIn && uid
+              ? <Splitter>
+                <SplitterContent>
+                  <Navigator
+                    swipeable
+                    initialRoute={
+                      { component: Body, props: { key: title } }
+                    }
+                    renderPage={this.renderPage}
+                    ref={(navigator) => { this.navigator = navigator; }}
+                  />
+                </SplitterContent>
+                <SplitterSide
+                  side='right'
+                  width={220}
+                  collapse={true}
+                  swipeable={true}
+                  isOpen={isShowSplitter}
+                  onClose={() => actions.closeSplitter()}
+                  onOpen={() => actions.openSplitter()}>
+                  <SplitterView navigator={this.navigator} />
+                </SplitterSide>
+              </Splitter>
+              : <Auth title={'Event Setting'} />
+          }
+        </div>
+      </BrowserRouter>
     );
   }
 
@@ -62,6 +65,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    isLoggedIn: state.auth.isLoggedIn,
     uid: state.auth.uid,
     title: state.ui.title,
     isShowSplitter: state.ui.isShowSplitter,

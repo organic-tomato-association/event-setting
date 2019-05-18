@@ -8,12 +8,22 @@ import firebase from 'firebase';
 
 import MyToolbar from '../MyToolbar';
 
-class Body extends React.Component {
+class UserUpdate extends React.Component {
   static newName = '';
+
+  // ユーザー情報編集URLを設定
+  componentDidMount() {
+    this.props.actions.pagePush(`/user/edit`);
+  }
+
+  // 前のURLに戻す
+  componentWillUnmount() {
+    this.props.actions.pagePop();
+  }
+
   render() {
     const { displayName } = this.props;
     this.newName = displayName;
-    console.log(this.props.navigator)
     return (
       <Page
         renderToolbar={this.renderToolbar.bind(this)}
@@ -70,4 +80,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Body);
+)(UserUpdate);

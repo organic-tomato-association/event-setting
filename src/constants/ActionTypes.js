@@ -1,6 +1,12 @@
-import * as auth from './auth';
+import setPrefix from './setPrefix';
 
-export const AUTH = auth;
+import * as auth from './auth';
+import * as page from './page';
+import * as firestore from './firestore/index';
+
+export const AUTH = setPrefix(auth, 'AUTH');
+export const PAGE = setPrefix(page, 'PAGE');
+export const FIRESTORE = setPrefix(firestore, 'FIRESTORE');
 
 export const TAB_CHANGE = 'TAB_CHANGE';
 
