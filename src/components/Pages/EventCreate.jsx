@@ -6,7 +6,7 @@ import { Button, Page, Input } from 'react-onsenui';
 
 import MyToolbar from '../MyToolbar';
 
-class Body extends React.Component {
+class EventCreate extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -101,4 +101,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Body);
+)(EventCreate);

@@ -7,7 +7,7 @@ import { Button, Card, AlertDialog, Page } from 'react-onsenui';
 import MyToolbar from '../MyToolbar';
 import EventEdit from './EventEdit';
 
-class Body extends React.Component {
+class EventDetail extends React.Component {
   static displayEvent = {};
 
   constructor() {
@@ -120,4 +120,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Body);
+)(EventDetail);
