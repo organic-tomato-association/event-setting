@@ -41,11 +41,13 @@ function* createEventSaga(action) {
 // イベント情報を更新する
 function* updateEventSaga(action) {
   const { id, event } = action.payload;
+  const sendEvent = {};
+  Object.assign(sendEvent, event);
   const uid = yield select(getUserId);
-  if (event.created_by === uid && id === event.id) {
-    delete event.id;
+  if (sendEvent.created_by === uid && id === sendEvent.id) {
+    delete sendEvent.id;
     try {
-      yield call(reduxSagaFirebase.firestore.updateDocument, `events/${id}`, event);
+      yield call(reduxSagaFirebase.firestore.updateDocument, `events/${id}`, sendEvent);
     } catch (error) {
       console.error(error);
     }
