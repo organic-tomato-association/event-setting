@@ -34,6 +34,10 @@ firebase login
 firebase deploy
 ```
 
+## Deploy
+
+<img src="https://pixe.la/v1/users/wakuwakup/graphs/es">
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
