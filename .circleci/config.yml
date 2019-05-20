@@ -88,7 +88,7 @@ jobs:
             curl -X POST -H 'Content-type: application/json' \
               --data "{\"text\": \"Approved workflow from <https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}|here>.\"}" \
               $SLACK_WEBHOOK_URL
-            curl -X PUT https://pixe.la/v1/users/wakuwakup/graphs/es/increment -H 'X-USER-TOKEN:${PIXELA_TOKEN}' -H 'Content-Length:0'
+            curl -X PUT https://pixe.la/v1/users/wakuwakup/graphs/es/increment -H '${PIXELA_TOKEN}' -H 'Content-Length:0'
   deploy-job:
     executor:
       name: default
