@@ -53,7 +53,7 @@ const createHtml = (name, eventId) => {
     <meta name="twitter:description" content="${DESCRIPTION}">
   </head>
   <body>
-    <script type="text/javascript">window.location="/event/detail/${stockid}";</script>
+    <script type="text/javascript">window.location="/ogp/event/detail/${stockid}";</script>
   </body>
 </html>
 `
