@@ -32,7 +32,7 @@ class App extends Component {
                   <Navigator
                     swipeable
                     initialRoute={
-                      { component: Body, props: { key: title } }
+                      { component: Body, props: { key: title, title: 'Home', } }
                     }
                     renderPage={this.renderPage}
                     ref={(navigator) => { this.navigator = navigator; }}

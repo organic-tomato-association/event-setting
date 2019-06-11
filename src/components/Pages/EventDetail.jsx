@@ -8,12 +8,11 @@ import MyToolbar from '../MyToolbar';
 import EventEdit from './EventEdit';
 
 class EventDetail extends React.Component {
-  static displayEvent = {};
-
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
       isShowDeleteDialog: false,
+      displayEvent: props.events.find(e => e.id === props.event) || { name: '', description: '' },
     };
   }
 
@@ -49,21 +48,21 @@ class EventDetail extends React.Component {
 
   onAcceptDialog() {
     const { event } = this.props;
-    this.setState({ isShowDeleteDialog: false });
-    this.props.actions.deleteEvent(event, this.displayEvent);
+    this.setState({ ...this.state, isShowDeleteDialog: false });
+    this.props.actions.deleteEvent(event, this.state.displayEvent);
     this.props.navigator.popPage();
   }
 
   render() {
-    const { event, events, uid } = this.props;
-    this.displayEvent = events.find(e => e.id === event) || { name: '', description: '' };
+    const { event, uid } = this.props;
+
     return (
       <Page
         renderToolbar={this.renderToolbar.bind(this)}
       >
         <Card>
-          <h2>{this.displayEvent.name}</h2>
-          <p>{this.displayEvent.description}</p>
+          <h2>{this.state.displayEvent.name}</h2>
+          <p>{this.state.displayEvent.description}</p>
         </Card>
         <AlertDialog
           isOpen={this.state.isShowDeleteDialog}
@@ -72,7 +71,7 @@ class EventDetail extends React.Component {
         >
           <div className="alert-dialog-title">注意</div>
           <div className="alert-dialog-content">
-            {this.displayEvent.name} を削除します。
+            {this.state.displayEvent.name} を削除します。
           </div>
           <div className="alert-dialog-footer">
             <Button onClick={() => this.onCancelDialog()} className="alert-dialog-button">
@@ -84,7 +83,7 @@ class EventDetail extends React.Component {
           </div>
         </AlertDialog>
         {
-          uid === this.displayEvent.created_by
+          uid === this.state.displayEvent.created_by
             ? (
               <div style={{ textAlign: 'center' }}>
                 <Button onClick={this.pushPage.bind(this, event)}>編集</Button>

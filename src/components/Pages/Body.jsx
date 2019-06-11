@@ -91,13 +91,13 @@ class Body extends React.Component {
   }
 
   render() {
-    const { tab, navigator, actions } = this.props;
+    const { tab, navigator } = this.props;
     return (
       <Page
         renderToolbar={this.renderToolbar.bind(this, navigator)}
       >
         <Tabbar
-          onPreChange={({ index }) => actions.tabChange(index)}
+          onPreChange={({ index }) => this.tabChange(index)}
           position='bottom'
           index={tab}
           renderTabs={() => [
@@ -125,6 +125,12 @@ class Body extends React.Component {
         </Switch>
       </Page >
     );
+  }
+
+  tabChange(index) {
+    this.props.actions.tabChange(index);
+    this.props.navigator.routes[0].props.title = index === 0 ? 'Home' : 'My Page';
+    console.log(this.props.navigator.routes[0].props.title)
   }
   renderToolbar(navigator) {
     return React.createElement(MyToolbar, navigator);

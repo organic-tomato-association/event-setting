@@ -1,10 +1,11 @@
-import { all, fork, take, takeEvery, put } from '@redux-saga/core/effects';
+import { all, fork, take, takeEvery, put, select } from '@redux-saga/core/effects';
 
 import * as Actions from '../../actions';
 import * as types from '../../constants/ActionTypes';
 
 import eventsSaga, { syncEventsSaga } from './events';
 import usersSaga, { syncUsersSaga } from './users';
+import { getAuthUser } from '../selecter';
 
 // firestoreのコレクション同期タスク起動
 function* syncSagas() {
@@ -20,6 +21,7 @@ function* syncSagas() {
 
   // ログイン状態を取得
   yield put(Actions.setLoggedIn());
+  yield put(Actions.setUser(yield select(getAuthUser)));
 }
 
 export default [

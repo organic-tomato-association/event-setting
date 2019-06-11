@@ -119,11 +119,13 @@ export function openSplitter() {
   };
 }
 
-// 表示名更新
-export function updateDisplayName(displayName) {
+// ユーザープロファイル更新
+export function updateProfile(user) {
   return {
-    type: types.UPDATE_DISPLAY_NAME,
-    displayName,
+    type: types.AUTH.UPDATE,
+    payload: {
+      user,
+    },
   };
 }
 
@@ -177,4 +179,24 @@ export function syncUsers(users) {
       users,
     },
   };
+}
+
+// ユーザーログイン時にユーザー名とユーザー画像をセットする
+export function setUser(user) {
+  return {
+    type: types.FIRESTORE.USERS.SET,
+    payload: {
+      user,
+    },
+  };
+}
+
+// ユーザー情報更新
+export function updateUser(user) {
+  return {
+    type: types.FIRESTORE.USERS.UPDATE,
+    payload: {
+      user,
+    }
+  }
 }

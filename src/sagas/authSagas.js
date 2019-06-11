@@ -48,6 +48,17 @@ function* refLoginSaga() {
   }
 }
 
+// ユーザー基本プロファイルを更新する
+function* updateAuthSaga(action) {
+  const user = action.payload.user;
+  try {
+    yield call(reduxSagaFirebase.auth.updateProfile, user);
+    yield put(Actions.setUser(user));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // ログアウトする
 function* logoutSaga() {
   try {
@@ -63,5 +74,6 @@ export default [
   takeEvery(types.AUTH.LOGIN_GITHUB, loginGithubSaga),
   takeEvery(types.AUTH.LOGIN_GOOGLE, loginGoogleSaga),
   takeEvery(types.AUTH.REF_LOGIN, refLoginSaga),
+  takeEvery(types.AUTH.UPDATE, updateAuthSaga),
   takeEvery(types.AUTH.LOGOUT, logoutSaga),
 ];
