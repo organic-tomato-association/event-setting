@@ -1,8 +1,9 @@
 import { reduxSagaFirebase, db } from "../../firebase";
-import { put, take } from "@redux-saga/core/effects";
+import { call, put, take, takeEvery, select } from "@redux-saga/core/effects";
 
 import * as Actions from '../../actions';
-// import * as types from '../../constants/ActionTypes';
+import { getUserId } from "../selecter";
+import * as types from '../../constants/ActionTypes';
 
 // イベントコレクションが更新されたら取得
 export function* syncUsersSaga() {
@@ -24,6 +25,20 @@ export function* syncUsersSaga() {
   }
 }
 
-export default [
+// Authの情報をユーザーテーブルに反映
+function* setUserSaga(acrion) {
+  const uid = yield select(getUserId);
+  const user = acrion.payload.user;
+  const options = {
+    merge: true,
+  };
+  try {
+    yield call(reduxSagaFirebase.firestore.setDocument, `users/${uid}`, user, options);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
+export default [
+  takeEvery(types.FIRESTORE.USERS.SET, setUserSaga),
 ];

@@ -2,15 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import * as Actions from '../../actions';
-import ons from 'onsenui'
 import { Page, Input, Button } from 'react-onsenui';
-import firebase from 'firebase';
 
 import MyToolbar from '../MyToolbar';
 
 class UserUpdate extends React.Component {
-  static newName = '';
-
+  constructor(props) {
+    super();
+    this.state = {
+      displayName: props.displayName,
+      photoUrl: props.photoUrl,
+    }
+  }
   // ユーザー情報編集URLを設定
   componentDidMount() {
     this.props.actions.pagePush(`/user/edit`);
@@ -22,8 +25,6 @@ class UserUpdate extends React.Component {
   }
 
   render() {
-    const { displayName } = this.props;
-    this.newName = displayName;
     return (
       <Page
         renderToolbar={this.renderToolbar.bind(this)}
@@ -31,8 +32,8 @@ class UserUpdate extends React.Component {
         <section style={{ textAlign: 'center' }}>
           <p>
             <Input
-              value={this.newName}
-              onChange={(e) => this.newName = e.target.value}
+              value={this.state.displayName}
+              onChange={e => this.setState({ ...this.state, displayName: e.target.value })}
               float
               placeholder='ユーザー名'
             />
@@ -46,17 +47,22 @@ class UserUpdate extends React.Component {
   }
 
   updateDisplayName() {
-    var user = firebase.auth().currentUser;
-    user.updateProfile({
-      displayName: this.newName,
-    }).then(() => {
-      this.props.navigator.popPage();
-      this.props.actions.updateDisplayName(this.newName);
-    }).catch(() => {
-      ons.notification.toast('失敗しました', {
-        timeout: 2000,
-      });
-    });
+    const user = {
+      displayName: this.state.displayName,
+      photoUrl: this.state.photoUrl,
+    }
+    this.props.actions.updateProfile(user);
+    // var user = firebase.auth().currentUser;
+    // user.updateProfile({
+    //   displayName: this.newName,
+    // }).then(() => {
+    //   this.props.navigator.popPage();
+    //   this.props.actions.updateDisplayName(this.newName);
+    // }).catch(() => {
+    //   ons.notification.toast('失敗しました', {
+    //     timeout: 2000,
+    //   });
+    // });
   }
 
   renderToolbar() {
@@ -68,6 +74,7 @@ class UserUpdate extends React.Component {
 const mapStateToProps = (state) => {
   return {
     displayName: state.auth.displayName,
+    photoUrl: state.auth.photoUrl,
   };
 }
 

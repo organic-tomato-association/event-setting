@@ -30,10 +30,11 @@ export default function auth(state = initialState, action) {
         displayName: null,
         email: null,
       };
-    case types.UPDATE_DISPLAY_NAME:
+    case types.AUTH.UPDATE:
       return {
         ...state,
-        displayName: action.displayName,
+        displayName: action.payload.user.displayName,
+        photoUrl: action.payload.user.photoUrl,
       };
     case types.AUTH.SET_LOGGED_IN:
       return {
