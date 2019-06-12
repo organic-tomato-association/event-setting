@@ -130,7 +130,6 @@ class Body extends React.Component {
   tabChange(index) {
     this.props.actions.tabChange(index);
     this.props.navigator.routes[0].props.title = index === 0 ? 'Home' : 'My Page';
-    console.log(this.props.navigator.routes[0].props.title)
   }
   renderToolbar(navigator) {
     return React.createElement(MyToolbar, navigator);
