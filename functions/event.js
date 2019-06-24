@@ -1,15 +1,15 @@
-import functions from 'firebase-functions';
-import admin from 'firebase-admin';
+const admin = require('firebase-admin');
 
-const db = admin.firestore()
+const db = admin.firestore();
 
-const CONFIG = functions.config();
-const app_domain = CONFIG.app.domain;
+const options = admin.options;
+const app_domain = options.storageBucket;
 const OGP_IMG_WIDTH = 1200;
 const OGP_IMG_HEIGHT = 630;
 
-const func = functions.https.onRequest((req, res) => {
-  const [, , eventId] = req.path.split('/')
+const func = (req, res) => {
+  const path = req.path.split('/');
+  const eventId = path[path.length - 1];
   return db.collection('events').doc(eventId).get().then(snap => {
     if (!snap) {
       res.status(404).end('404 Not Found')
@@ -25,7 +25,7 @@ const func = functions.https.onRequest((req, res) => {
     console.warn(err)
     // 略 : エラー時はデフォルトのhtml（固定のOGP）を返す
   })
-});
+};
 
 const createHtml = (name, eventId) => {
   const SITEURL = `https://${app_domain}`
@@ -59,4 +59,4 @@ const createHtml = (name, eventId) => {
 `
 }
 
-module.exports = func
+module.exports = func;

@@ -5,6 +5,7 @@ import * as Actions from '../../actions';
 import { Page, Input, Button } from 'react-onsenui';
 
 import MyToolbar from '../MyToolbar';
+import ImageUploader from '../assets/ImageUploader';
 
 class UserUpdate extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class UserUpdate extends React.Component {
     this.state = {
       displayName: props.displayName,
       photoUrl: props.photoUrl,
+      newPhoto: null,
     }
   }
   // ユーザー情報編集URLを設定
@@ -24,12 +26,28 @@ class UserUpdate extends React.Component {
     this.props.actions.pagePop();
   }
 
+  updateNewPhoto(newPhoto) {
+    this.setState({ newPhoto });
+  }
+
   render() {
     return (
       <Page
         renderToolbar={this.renderToolbar.bind(this)}
       >
         <section style={{ textAlign: 'center' }}>
+          <div style={{
+            marginBlockStart: '1em',
+            marginBlockEnd: '1em',
+            marginInlineStart: '0px',
+            marginInlineEnd: '0px',
+          }}>
+            <ImageUploader
+              photoUrl={this.state.photoUrl}
+              updatePhoto={(data) => this.updateNewPhoto(data)}
+              width={400}
+              height={400} />
+          </div>
           <p>
             <Input
               value={this.state.displayName}
