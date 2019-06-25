@@ -37,10 +37,13 @@ class UserUpdate extends React.Component {
       >
         <section style={{ textAlign: 'center' }}>
           <div style={{
+            display: 'inline-block',
             marginBlockStart: '1em',
             marginBlockEnd: '1em',
             marginInlineStart: '0px',
             marginInlineEnd: '0px',
+            width: '20vmax',
+            height: '20vmax',
           }}>
             <ImageUploader
               photoUrl={this.state.photoUrl}

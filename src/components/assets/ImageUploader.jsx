@@ -4,6 +4,8 @@ import { Modal } from 'react-onsenui';
 import Cropper from 'react-easy-crop';
 import {Button} from "react-onsenui";
 
+import cssModule from './ImageUploader.module.css';
+
 export default class ImageUpdater extends React.Component {
   constructor(props) {
     super();
@@ -56,21 +58,10 @@ export default class ImageUpdater extends React.Component {
 
   render() {
     return (
-      <div>
-        <div
-          style={{
-            display: 'inline-block',
-            position: 'relative',
-            overflow: 'hidden',
-            border: '1px solid black',
-            textAlign: 'center',
-            padding: '10px',
-            lineHeight: '30px',
-            width: '20vmax',
-            height: '20vmax',
-            cursor: 'pointer',
-          }}
-        >
+      <div
+        className={cssModule.area}
+      >
+        <div>
           {(
             () => {
               if (this.state.userIcon !== null || this.props.photoUrl !== undefined) {
@@ -78,45 +69,33 @@ export default class ImageUpdater extends React.Component {
                   <img
                     src={this.state.userIcon !== null ? this.state.userIcon : this.state.photoUrl}
                     alt="user icon"
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: '100%',
-                      cursor: 'pointer',
-                    }}
+                    className={cssModule.areaImg}
                   />
                 );
               } else {
                 return (
-                  <div style={{
-                    position: 'absolute',
-                    top: '9vmax',
-                    left: 0,
-                    fontSize: '2vmax',
-                    width: '100%',
-                    cursor: 'pointer',
-                  }}
+                  <div
+                    className={cssModule.areaText}
                   >no image</div>
                 );
               }
             }
           )()}
-          <input
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              cursor: 'pointer',
-              opacity: 0,
-            }}
-            type="file"
-            ref="file"
-            onChange={this.handleChangeFile}
-          />
+          <div className={cssModule.areaOverlayBG}></div>
+          <div className={`${cssModule.areaOverlay} ${cssModule.areaSelect}`}>
+            <div
+              className={cssModule.areaOverlayText}
+            >
+              <p>プロフィール画像を</p>
+              <p>変更</p>
+            </div>
+            <input
+              className={cssModule.areaInput}
+              type="file"
+              ref="file"
+              onChange={this.handleChangeFile}
+            />
+          </div>
         </div>
         <Modal isOpen={this.state.isLoading} animation="fade">
           <div>
