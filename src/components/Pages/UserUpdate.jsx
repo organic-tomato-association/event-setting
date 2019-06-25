@@ -5,7 +5,7 @@ import Actions from '../../actions';
 import { Page, Input, Button } from 'react-onsenui';
 
 import MyToolbar from '../MyToolbar';
-import ImageUploader from '../assets/ImageUploader';
+import ImageUploader from '../assets/ImageUploader/ImageUploader';
 
 class UserUpdate extends React.Component {
   constructor(props) {
