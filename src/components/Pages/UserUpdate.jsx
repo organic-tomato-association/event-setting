@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import * as Actions from '../../actions';
+import Actions from '../../actions';
 import { Page, Input, Button } from 'react-onsenui';
 
 import MyToolbar from '../MyToolbar';
@@ -68,19 +68,8 @@ class UserUpdate extends React.Component {
     const user = {
       displayName: this.state.displayName,
       photoUrl: this.state.photoUrl,
-    }
+    };
     this.props.actions.updateProfile(user);
-    // var user = firebase.auth().currentUser;
-    // user.updateProfile({
-    //   displayName: this.newName,
-    // }).then(() => {
-    //   this.props.navigator.popPage();
-    //   this.props.actions.updateDisplayName(this.newName);
-    // }).catch(() => {
-    //   ons.notification.toast('失敗しました', {
-    //     timeout: 2000,
-    //   });
-    // });
   }
 
   renderToolbar() {
@@ -94,13 +83,13 @@ const mapStateToProps = (state) => {
     displayName: state.auth.displayName,
     photoUrl: state.auth.photoUrl,
   };
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(Actions, dispatch),
   };
-}
+};
 
 export default connect(
   mapStateToProps,

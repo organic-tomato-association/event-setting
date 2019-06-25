@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal } from 'react-onsenui';
 
 import Cropper from 'react-easy-crop';
+import {Button} from "react-onsenui";
 
 export default class ImageUpdater extends React.Component {
   constructor(props) {
@@ -27,22 +28,22 @@ export default class ImageUpdater extends React.Component {
         image_src: image_url,
         crop: { x: 0, y: 0 },
         zoom: 1,
-        aspect: 1 / 1,
+        aspect: this.props.width / this.props.height,
       });
     }
-  }
+  };
 
   onCropChange = crop => {
     this.setState({ crop })
-  }
+  };
 
   onCropComplete = (croppedArea, croppedAreaPixels) => {
     this.setState({ croppedAreaPixels });
-  }
+  };
 
   onZoomChange = zoom => {
     this.setState({ zoom })
-  }
+  };
 
   setCroppedImage = async () => {
     const userIcon = await this.getCroppedImg(
@@ -151,7 +152,7 @@ export default class ImageUpdater extends React.Component {
                 alignItems: 'center',
               }}
             >
-              <button onClick={this.setCroppedImage}>決定</button>
+              <Button onClick={this.setCroppedImage}>決定</Button>
             </div>
           </div>
         </Modal>
@@ -161,11 +162,11 @@ export default class ImageUpdater extends React.Component {
 
   // 画像の下準備
   createImage = url => new Promise((resolve, reject) => {
-    const image = new Image()
-    image.addEventListener('load', () => resolve(image))
-    image.addEventListener('error', error => reject(error))
-    image.setAttribute('crossOrigin', 'anonymous') // needed to avoid cross-origin issues on CodeSandbox
-    image.src = url
+    const image = new Image();
+    image.addEventListener('load', () => resolve(image));
+    image.addEventListener('error', error => reject(error));
+    image.setAttribute('crossOrigin', 'anonymous'); // needed to avoid cross-origin issues on CodeSandbox
+    image.src = url;
   });
 
   // トリミングした画像を生成

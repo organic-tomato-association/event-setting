@@ -4,7 +4,7 @@ import { reduxSagaFirebase } from "../firebase";
 import { eventChannel } from 'redux-saga';
 import { call, put, take, takeEvery } from "@redux-saga/core/effects";
 
-import * as Actions from '../actions';
+import Actions from '../actions';
 import * as types from '../constants/ActionTypes';
 
 const githubAuthProvider = new firebase.auth.GithubAuthProvider();
@@ -33,14 +33,12 @@ function* loginGoogleSaga() {
 // ログイン状態のチェック
 function* refLoginSaga() {
   const channel = yield call(() => {
-    const channel = eventChannel(emit => {
-      const unsubscribe = firebase.auth().onAuthStateChanged(
+    return eventChannel(emit => {
+      return firebase.auth().onAuthStateChanged(
         user => emit({ user }),
         error => emit({ error })
-      )
-      return unsubscribe
-    })
-    return channel;
+      );
+    });
   });
   const { user, error } = yield take(channel);
   if (user && !error) {

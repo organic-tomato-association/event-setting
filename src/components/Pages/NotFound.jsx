@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import * as Actions from '../../actions';
+import Actions from '../../actions';
 import { Page } from 'react-onsenui';
 
 import MyToolbar from '../MyToolbar';
@@ -35,13 +35,13 @@ class NotFound extends React.Component {
 const mapStateToProps = (state) => {
   return {
   };
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(Actions, dispatch),
   };
-}
+};
 
 export default connect(
   mapStateToProps,

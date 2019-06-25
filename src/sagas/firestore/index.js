@@ -1,6 +1,6 @@
 import { all, fork, take, takeEvery, put, select } from '@redux-saga/core/effects';
 
-import * as Actions from '../../actions';
+import Actions from '../../actions';
 import * as types from '../../constants/ActionTypes';
 
 import eventsSaga, { syncEventsSaga } from './events';

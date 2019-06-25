@@ -3,7 +3,7 @@ import { reduxSagaFirebase, db } from "../../firebase";
 import { call, put, take, takeEvery, select } from "@redux-saga/core/effects";
 
 import { getUserId } from '../selecter';
-import * as Actions from '../../actions';
+import Actions from '../../actions';
 import * as types from '../../constants/ActionTypes';
 
 // イベントコレクションが更新されたら取得

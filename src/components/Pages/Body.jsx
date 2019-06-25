@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import * as Actions from '../../actions';
+import Actions from '../../actions';
 import { Tabbar, Tab, Page } from 'react-onsenui';
 import { Route, Switch } from 'react-router-dom';
 
@@ -110,7 +110,7 @@ class Body extends React.Component {
               tab: <Tab key={1} label="MyPage" icon="md-account" />
             }
           ]}
-        ></Tabbar>
+        />
         <Switch>
           {/* ルートURLのルーティング */}
           <Route path='/' exact render={() => this.defaultLoad()} />
@@ -144,13 +144,13 @@ const mapStateToProps = (state) => {
     isFirstLoad: state.ui.isFirstLoad,
     onChange: Actions.tabChange,
   };
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(Actions, dispatch),
   };
-}
+};
 
 export default connect(
   mapStateToProps,
