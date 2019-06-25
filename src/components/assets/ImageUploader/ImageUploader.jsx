@@ -94,6 +94,7 @@ export default class ImageUpdater extends React.Component {
               type="file"
               ref="file"
               onChange={this.handleChangeFile}
+              onClick={e => e.target.value = ''}
             />
           </div>
         </div>
@@ -113,7 +114,7 @@ export default class ImageUpdater extends React.Component {
                 crop={this.state.crop}
                 zoom={this.state.zoom}
                 aspect={this.state.aspect}
-                zoomSpeed={0.25}
+                zoomSpeed={1}
                 maxZoom={5}
                 onCropChange={this.onCropChange}
                 onCropComplete={this.onCropComplete}
