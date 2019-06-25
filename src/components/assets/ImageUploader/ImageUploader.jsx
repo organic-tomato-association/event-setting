@@ -1,8 +1,6 @@
 import React from 'react';
-import { Modal } from 'react-onsenui';
-
 import Cropper from 'react-easy-crop';
-import {Button} from "react-onsenui";
+import { Button, Col, Modal, Range } from "react-onsenui";
 
 import cssModule from './ImageUploader.module.css';
 
@@ -10,7 +8,9 @@ export default class ImageUpdater extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      ...props,
+      photoUrl: props.photoUrl,
+      width: props.width,
+      height: props.height,
       image_src: '',
       crop: { x: 0, y: 0 },
       zoom: 1,
@@ -81,7 +81,7 @@ export default class ImageUpdater extends React.Component {
               }
             }
           )()}
-          <div className={cssModule.areaOverlayBG}></div>
+          <div className={cssModule.areaOverlayBG}/>
           <div className={`${cssModule.areaOverlay} ${cssModule.areaSelect}`}>
             <div
               className={cssModule.areaOverlayText}
@@ -113,6 +113,8 @@ export default class ImageUpdater extends React.Component {
                 crop={this.state.crop}
                 zoom={this.state.zoom}
                 aspect={this.state.aspect}
+                zoomSpeed={0.25}
+                maxZoom={5}
                 onCropChange={this.onCropChange}
                 onCropComplete={this.onCropComplete}
                 onZoomChange={this.onZoomChange}
@@ -123,15 +125,23 @@ export default class ImageUpdater extends React.Component {
               style={{
                 position: 'absolute',
                 bottom: 0,
-                left: '50%',
-                width: '50%',
-                transform: 'translateX(-50 %)',
+                left: '0',
+                width: '100%',
                 height: '80px',
                 display: 'flex',
                 alignItems: 'center',
               }}
             >
-              <Button onClick={this.setCroppedImage}>決定</Button>
+              <Col width={'70%'}>
+                <Range
+                  style={{width: '80%', margin: '0 10%'}}
+                  value={(this.state.zoom - 1) * 25}
+                  onChange={(event) => this.setState({zoom: (parseInt(event.target.value) / 25) + 1})}
+                />
+              </Col>
+              <Col width={'30%'}>
+                <Button onClick={this.setCroppedImage}>決定</Button>
+              </Col>
             </div>
           </div>
         </Modal>
