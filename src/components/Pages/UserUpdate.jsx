@@ -75,6 +75,7 @@ class UserUpdate extends React.Component {
       photoURL: this.state.photoURL,
     };
     this.props.actions.updateProfile(user, this.state.newPhoto);
+    this.props.navigator.popPage();
   }
 
   renderToolbar() {
