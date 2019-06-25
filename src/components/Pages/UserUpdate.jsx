@@ -12,8 +12,9 @@ class UserUpdate extends React.Component {
     super();
     this.state = {
       displayName: props.displayName,
-      photoUrl: props.photoUrl,
+      photoURL: props.photoURL,
       newPhoto: null,
+      isLoading: false,
     }
   }
   // ユーザー情報編集URLを設定
@@ -46,7 +47,8 @@ class UserUpdate extends React.Component {
             height: '20vmax',
           }}>
             <ImageUploader
-              photoUrl={this.state.photoUrl}
+              photoURL={this.state.photoURL}
+              alt="profile"
               updatePhoto={(data) => this.updateNewPhoto(data)}
               width={400}
               height={400} />
@@ -60,19 +62,19 @@ class UserUpdate extends React.Component {
             />
           </p>
           <p>
-            <Button onClick={this.updateDisplayName.bind(this)}>更新</Button>
+            <Button onClick={this.updateProfile.bind(this)}>更新</Button>
           </p>
         </section>
       </Page >
     );
   }
 
-  updateDisplayName() {
+  updateProfile() {
     const user = {
       displayName: this.state.displayName,
-      photoUrl: this.state.photoUrl,
+      photoURL: this.state.photoURL,
     };
-    this.props.actions.updateProfile(user);
+    this.props.actions.updateProfile(user, this.state.newPhoto);
   }
 
   renderToolbar() {
@@ -84,7 +86,7 @@ class UserUpdate extends React.Component {
 const mapStateToProps = (state) => {
   return {
     displayName: state.auth.displayName,
-    photoUrl: state.auth.photoUrl,
+    photoURL: state.auth.photoURL,
   };
 };
 

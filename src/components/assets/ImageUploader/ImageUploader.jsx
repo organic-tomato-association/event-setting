@@ -8,7 +8,9 @@ export default class ImageUpdater extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      photoUrl: props.photoUrl,
+      alt: props.alt,
+      updatePhoto: props.updatePhoto,
+      photoURL: props.photoURL,
       width: props.width,
       height: props.height,
       image_src: '',
@@ -16,6 +18,7 @@ export default class ImageUpdater extends React.Component {
       zoom: 1,
       aspect: props.width / props.height,
       userIcon: null,
+      newPhotoUrl: '',
       croppedAreaPixels: null,
       isLoading: false,
     };
@@ -52,8 +55,13 @@ export default class ImageUpdater extends React.Component {
       this.state.image_src,
       this.state.croppedAreaPixels,
     );
-    this.setState({ userIcon, isLoading: false });
-    this.props.updatePhoto(userIcon);
+
+    this.setState({
+      userIcon,
+      newPhotoUrl: URL.createObjectURL(userIcon),
+      isLoading: false
+    });
+    this.state.updatePhoto(userIcon);
   };
 
   render() {
@@ -64,11 +72,11 @@ export default class ImageUpdater extends React.Component {
         <div>
           {(
             () => {
-              if (this.state.userIcon !== null || this.props.photoUrl !== undefined) {
+              if (!!this.state.newPhotoUrl || this.props.photoURL !== undefined) {
                 return (
                   <img
-                    src={this.state.userIcon !== null ? this.state.userIcon : this.state.photoUrl}
-                    alt="user icon"
+                    src={!!this.state.newPhotoUrl ? this.state.newPhotoUrl : this.state.photoURL}
+                    alt={this.state.alt}
                     className={cssModule.areaImg}
                   />
                 );
@@ -185,7 +193,7 @@ export default class ImageUpdater extends React.Component {
     // As a blob
     return new Promise((resolve, reject) => {
       canvas.toBlob(file => {
-        resolve(URL.createObjectURL(file));
+        resolve(file);
       }, 'image/jpeg');
     });
   }

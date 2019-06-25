@@ -2,9 +2,10 @@ import firebase from 'firebase/app';
 import '@firebase/firestore';
 import { reduxSagaFirebase } from "../firebase";
 import { eventChannel } from 'redux-saga';
-import { call, put, take, takeEvery } from "@redux-saga/core/effects";
+import { call, put, take, takeEvery, select } from "@redux-saga/core/effects";
 
 import Actions from '../actions';
+import { getUserId } from "./selecter";
 import * as types from '../constants/ActionTypes';
 
 const githubAuthProvider = new firebase.auth.GithubAuthProvider();
@@ -49,9 +50,23 @@ function* refLoginSaga() {
 // ユーザー基本プロファイルを更新する
 function* updateAuthSaga(action) {
   const user = action.payload.user;
+  const image = action.payload.newPhoto;
+  if (!!image) {
+    const uid = yield select(getUserId);
+    try {
+      const task = reduxSagaFirebase
+        .storage.uploadFile(`userIcon/${uid}.jpg`, image);
+      yield task;
+      user.photoURL = yield call(reduxSagaFirebase.storage.getDownloadURL, `userIcon/${uid}.jpg`);
+    } catch(error) {
+      console.log(error);
+    }
+  }
   try {
+    console.log(user);
     yield call(reduxSagaFirebase.auth.updateProfile, user);
     yield put(Actions.setUser(user));
+    yield put(Actions.updateProfileSuccess(user));
   } catch (error) {
     console.log(error);
   }

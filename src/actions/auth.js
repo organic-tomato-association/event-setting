@@ -27,7 +27,7 @@ function loginSuccess(user) {
     type: types.AUTH.LOGIN_SUCCESS,
     payload: {
       displayName: user.displayName,
-      photoUrl: user.photoURL,
+      photoURL: user.photoURL,
       email: user.email,
       uid: user.uid,
     },
@@ -61,7 +61,7 @@ function logoutSuccess(user) {
     type: types.AUTH.LOGOUT_SUCCESS,
     payload: {
       displayName: user.displayName,
-      photoUrl: user.photoURL,
+      photoURL: user.photoURL,
       email: user.email,
       uid: user.uid,
     },
@@ -76,9 +76,19 @@ function logoutFailure(e) {
 }
 
 // ユーザープロファイル更新
-function updateProfile(user) {
+function updateProfile(user, newPhoto) {
   return {
     type: types.AUTH.UPDATE,
+    payload: {
+      user,
+      newPhoto,
+    },
+  };
+}
+
+function updateProfileSuccess (user) {
+  return {
+    type: types.AUTH.UPDATE_SUCCESS,
     payload: {
       user,
     },
@@ -96,4 +106,5 @@ export default {
   logoutSuccess,
   logoutFailure,
   updateProfile,
+  updateProfileSuccess,
 }
