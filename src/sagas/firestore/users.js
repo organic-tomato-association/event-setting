@@ -1,7 +1,7 @@
 import { reduxSagaFirebase, db } from "../../firebase";
 import { call, put, take, takeEvery, select } from "@redux-saga/core/effects";
 
-import * as Actions from '../../actions';
+import Actions from '../../actions';
 import { getUserId } from "../selecter";
 import * as types from '../../constants/ActionTypes';
 
@@ -26,9 +26,9 @@ export function* syncUsersSaga() {
 }
 
 // Authの情報をユーザーテーブルに反映
-function* setUserSaga(acrion) {
+function* setUserSaga(action) {
   const uid = yield select(getUserId);
-  const user = acrion.payload.user;
+  const user = action.payload.user;
   const options = {
     merge: true,
   };

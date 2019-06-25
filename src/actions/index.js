@@ -1,202 +1,37 @@
-import * as types from '../constants/ActionTypes';
-
-// ログインチェック
-export function refLogin() {
-  return {
-    type: types.AUTH.REF_LOGIN
-  };
-}
-
-// Githubログイン
-export function loginGithub() {
-  return {
-    type: types.AUTH.LOGIN_GITHUB,
-  }
-}
-
-// Googleログイン
-export function loginGoogle() {
-  return {
-    type: types.AUTH.LOGIN_GOOGLE,
-  }
-}
-
-// ログイン成功
-export function loginSuccess(user) {
-  return {
-    type: types.AUTH.LOGIN_SUCCESS,
-    payload: {
-      displayName: user.displayName,
-      photoUrl: user.photoURL,
-      email: user.email,
-      uid: user.uid,
-    },
-  };
-}
-
-// ログイン失敗
-export function loginFailure(e) {
-  return {
-    type: types.AUTH.LOGIN_FAILURE,
-  };
-}
-
-// ログイン済み
-export function setLoggedIn() {
-  return {
-    type: types.AUTH.SET_LOGGED_IN,
-  }
-}
-
-// ログアウト開始
-export function logout() {
-  return {
-    type: types.AUTH.LOGOUT,
-  };
-}
-
-// ログアウト成功
-export function logoutSuccess(user) {
-  return {
-    type: types.AUTH.LOGOUT_SUCCESS,
-    payload: {
-      displayName: user.displayName,
-      photoUrl: user.photoURL,
-      email: user.email,
-      uid: user.uid,
-    },
-  };
-}
-
-// ログアウト失敗
-export function logoutFailure(e) {
-  return {
-    type: types.AUTH.LOGOUT_FAILURE,
-  };
-}
-
-// ページPUSH
-export function pagePush(url) {
-  return {
-    type: types.PAGE.PUSH,
-    url,
-  };
-}
-
-// ページPOP
-export function pagePop() {
-  return {
-    type: types.PAGE.POP,
-  };
-}
-
-// 初回ロード
-export function firstLoad() {
-  return {
-    type: types.PAGE.FIRST_LOAD,
-  }
-}
+import auth from './auth';
+import page from './page';
+import firestore from './firestore';
+import * as types from "../constants/ActionTypes";
 
 // タブ切替
-export function tabChange(id) {
+function tabChange(id) {
   return {
     type: types.TAB_CHANGE,
-    id,
+    payload: {
+      id,
+    }
   };
 }
 
 // メニュー非表示
-export function closeSplitter() {
+function closeSplitter() {
   return {
     type: types.CLOSE_SPLITTER,
   };
 }
 
 // メニュー表示
-export function openSplitter() {
+function openSplitter() {
   return {
     type: types.OPEN_SPLITTER,
   };
 }
 
-// ユーザープロファイル更新
-export function updateProfile(user) {
-  return {
-    type: types.AUTH.UPDATE,
-    payload: {
-      user,
-    },
-  };
-}
-
-// イベントコレクションの同期
-export function syncEvents(events) {
-  return {
-    type: types.FIRESTORE.EVENTS.SYNC,
-    payload: {
-      events,
-    },
-  };
-}
-
-// イベント作成
-export function createEvent(event) {
-  return {
-    type: types.FIRESTORE.EVENTS.CREATE,
-    payload: {
-      event,
-    },
-  };
-}
-
-// イベントの更新
-export function updateEvent(id, event) {
-  return {
-    type: types.FIRESTORE.EVENTS.UPDATE,
-    payload: {
-      id,
-      event,
-    },
-  };
-}
-
-// イベントの削除
-export function deleteEvent(id, event) {
-  return {
-    type: types.FIRESTORE.EVENTS.DELETE,
-    payload: {
-      id,
-      event,
-    },
-  };
-}
-
-// ユーザーコレクション同期
-export function syncUsers(users) {
-  return {
-    type: types.FIRESTORE.USERS.SYNC,
-    payload: {
-      users,
-    },
-  };
-}
-
-// ユーザーログイン時にユーザー名とユーザー画像をセットする
-export function setUser(user) {
-  return {
-    type: types.FIRESTORE.USERS.SET,
-    payload: {
-      user,
-    },
-  };
-}
-
-// ユーザー情報更新
-export function updateUser(user) {
-  return {
-    type: types.FIRESTORE.USERS.UPDATE,
-    payload: {
-      user,
-    }
-  }
-}
+export default {
+  ...auth,
+  ...page,
+  ...firestore,
+  tabChange,
+  closeSplitter,
+  openSplitter,
+};

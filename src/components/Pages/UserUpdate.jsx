@@ -1,17 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import * as Actions from '../../actions';
+import Actions from '../../actions';
 import { Page, Input, Button } from 'react-onsenui';
 
 import MyToolbar from '../MyToolbar';
+import ImageUploader from '../assets/ImageUploader/ImageUploader';
 
 class UserUpdate extends React.Component {
   constructor(props) {
     super();
     this.state = {
       displayName: props.displayName,
-      photoUrl: props.photoUrl,
+      photoURL: props.photoURL,
+      newPhoto: null,
+      isLoading: false,
     }
   }
   // ユーザー情報編集URLを設定
@@ -24,12 +27,32 @@ class UserUpdate extends React.Component {
     this.props.actions.pagePop();
   }
 
+  updateNewPhoto(newPhoto) {
+    this.setState({ newPhoto });
+  }
+
   render() {
     return (
       <Page
         renderToolbar={this.renderToolbar.bind(this)}
       >
         <section style={{ textAlign: 'center' }}>
+          <div style={{
+            display: 'inline-block',
+            marginBlockStart: '1em',
+            marginBlockEnd: '1em',
+            marginInlineStart: '0px',
+            marginInlineEnd: '0px',
+            width: '20vmax',
+            height: '20vmax',
+          }}>
+            <ImageUploader
+              photoURL={this.state.photoURL}
+              alt="profile"
+              updatePhoto={(data) => this.updateNewPhoto(data)}
+              width={400}
+              height={400} />
+          </div>
           <p>
             <Input
               value={this.state.displayName}
@@ -39,30 +62,20 @@ class UserUpdate extends React.Component {
             />
           </p>
           <p>
-            <Button onClick={this.updateDisplayName.bind(this)}>更新</Button>
+            <Button onClick={this.updateProfile.bind(this)}>更新</Button>
           </p>
         </section>
       </Page >
     );
   }
 
-  updateDisplayName() {
+  updateProfile() {
     const user = {
       displayName: this.state.displayName,
-      photoUrl: this.state.photoUrl,
-    }
-    this.props.actions.updateProfile(user);
-    // var user = firebase.auth().currentUser;
-    // user.updateProfile({
-    //   displayName: this.newName,
-    // }).then(() => {
-    //   this.props.navigator.popPage();
-    //   this.props.actions.updateDisplayName(this.newName);
-    // }).catch(() => {
-    //   ons.notification.toast('失敗しました', {
-    //     timeout: 2000,
-    //   });
-    // });
+      photoURL: this.state.photoURL,
+    };
+    this.props.actions.updateProfile(user, this.state.newPhoto);
+    this.props.navigator.popPage();
   }
 
   renderToolbar() {
@@ -74,15 +87,15 @@ class UserUpdate extends React.Component {
 const mapStateToProps = (state) => {
   return {
     displayName: state.auth.displayName,
-    photoUrl: state.auth.photoUrl,
+    photoURL: state.auth.photoURL,
   };
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(Actions, dispatch),
   };
-}
+};
 
 export default connect(
   mapStateToProps,

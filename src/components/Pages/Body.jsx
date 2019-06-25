@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import * as Actions from '../../actions';
+import Actions from '../../actions';
 import { Tabbar, Tab, Page } from 'react-onsenui';
 import { Route, Switch } from 'react-router-dom';
 
@@ -110,7 +110,7 @@ class Body extends React.Component {
               tab: <Tab key={1} label="MyPage" icon="md-account" />
             }
           ]}
-        ></Tabbar>
+        />
         <Switch>
           {/* ルートURLのルーティング */}
           <Route path='/' exact render={() => this.defaultLoad()} />
@@ -119,7 +119,7 @@ class Body extends React.Component {
           {/* イベント作成のルーティング */}
           <Route path='/event/create' exact render={res => this.pushPageEventCreate(res)} />
           {/* イベント詳細のルーティング */}
-          <Route path='/event/detail/:key' exact render={res => this.pushPageEventDetail(res)} />
+          <Route path='/ogp/event/detail/:key' exact render={res => this.pushPageEventDetail(res)} />
           {/* ルーティングにヒットしなかった場合のルーティング */}
           <Route exact render={() => this.notFound()} />
         </Switch>
@@ -130,7 +130,6 @@ class Body extends React.Component {
   tabChange(index) {
     this.props.actions.tabChange(index);
     this.props.navigator.routes[0].props.title = index === 0 ? 'Home' : 'My Page';
-    console.log(this.props.navigator.routes[0].props.title)
   }
   renderToolbar(navigator) {
     return React.createElement(MyToolbar, navigator);
@@ -145,13 +144,13 @@ const mapStateToProps = (state) => {
     isFirstLoad: state.ui.isFirstLoad,
     onChange: Actions.tabChange,
   };
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(Actions, dispatch),
   };
-}
+};
 
 export default connect(
   mapStateToProps,

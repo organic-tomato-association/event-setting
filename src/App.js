@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import * as Actions from './actions';
+import Actions from './actions';
 import { Navigator, Splitter, SplitterSide, SplitterContent } from 'react-onsenui';
 import { BrowserRouter } from 'react-router-dom';
 import { When } from 'react-display-switch';

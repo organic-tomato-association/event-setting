@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import * as Actions from '../actions';
+import Actions from '../actions';
 import { Page, List, ListItem } from 'react-onsenui';
 
 import UserUpdate from './Pages/UserUpdate';
@@ -39,11 +39,11 @@ class SplitterView extends React.Component {
   }
 
   render() {
-    const { displayName, photoUrl, actions } = this.props;
+    const { displayName, photoURL, actions } = this.props;
     return (
       <Page>
         <div style={{ height: '220px' }}>
-          <img src={photoUrl} alt="UserProfileImg" height="220px" />
+          <img src={photoURL} alt="UserProfileImg" height="220px" />
         </div>
         <h4>{displayName}</h4>
         <List>
@@ -64,15 +64,15 @@ class SplitterView extends React.Component {
 const mapStateToProps = (state) => {
   return {
     displayName: state.auth.displayName,
-    photoUrl: state.auth.photoUrl
+    photoURL: state.auth.photoURL
   };
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(Actions, dispatch),
   };
-}
+};
 
 export default connect(
   mapStateToProps,

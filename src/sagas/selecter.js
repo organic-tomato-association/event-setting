@@ -3,5 +3,5 @@ export const getUserId = (state) => state.auth.uid;
 export const getIsLoggedIn = (state) => state.auth.isLoggedIn;
 export const getAuthUser = (state) => ({
   displayName: state.auth.displayName,
-  photoUrl: state.auth.photoUrl
+  photoURL: state.auth.photoURL
 });

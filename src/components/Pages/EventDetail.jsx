@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import * as Actions from '../../actions';
+import Actions from '../../actions';
 import { Button, Card, AlertDialog, Page } from 'react-onsenui';
 
 import MyToolbar from '../MyToolbar';
@@ -108,13 +108,13 @@ const mapStateToProps = (state) => {
     uid: state.auth.uid,
     url: state.ui.urlHistory[state.ui.urlHistory.length - 1],
   };
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(Actions, dispatch),
   };
-}
+};
 
 export default connect(
   mapStateToProps,

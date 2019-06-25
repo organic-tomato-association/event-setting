@@ -5,6 +5,7 @@ const initialState = {
   isLoggedIn: false,
   uid: null,
   displayName: null,
+  photoURL: null,
   email: null,
 };
 
@@ -20,7 +21,7 @@ export default function auth(state = initialState, action) {
         ...state,
         uid: action.payload.uid,
         displayName: action.payload.displayName,
-        photoUrl: action.payload.photoUrl,
+        photoURL: action.payload.photoURL,
         email: action.payload.email,
       };
     case types.AUTH.LOGOUT:
@@ -28,13 +29,14 @@ export default function auth(state = initialState, action) {
         ...state,
         uid: null,
         displayName: null,
+        photoURL: null,
         email: null,
       };
-    case types.AUTH.UPDATE:
+    case types.AUTH.UPDATE_SUCCESS:
       return {
         ...state,
         displayName: action.payload.user.displayName,
-        photoUrl: action.payload.user.photoUrl,
+        photoURL: action.payload.user.photoURL,
       };
     case types.AUTH.SET_LOGGED_IN:
       return {

@@ -22,7 +22,7 @@ export default function ui(state = initialState, action) {
       const title = action.id === 0 ? 'Home' : 'My Page'
       return {
         ...state,
-        tab: action.id,
+        tab: action.payload.id,
         title: title,
       };
     case types.AUTH.LOGIN_SUCCESS:
@@ -41,7 +41,7 @@ export default function ui(state = initialState, action) {
         isShowSplitter: false,
       };
     case types.PAGE.PUSH:
-      state.urlHistory.push(action.url);
+      state.urlHistory.push(action.payload.url);
       return state;
     case types.PAGE.POP:
       state.urlHistory.pop();

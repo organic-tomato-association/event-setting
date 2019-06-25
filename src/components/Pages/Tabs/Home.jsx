@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import * as Actions from '../../../actions';
+import Actions from '../../../actions';
 import { Page, Card, Row, Col } from 'react-onsenui';
 import EventDetail from '../EventDetail';
 
@@ -46,13 +46,13 @@ const mapStateToProps = (state) => {
   return {
     events: state.data.events,
   };
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(Actions, dispatch),
   };
-}
+};
 
 export default connect(
   mapStateToProps,

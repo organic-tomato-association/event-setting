@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import * as Actions from '../../actions';
+import Actions from '../../actions';
 import { Button, Page, Input } from 'react-onsenui';
 
 import MyToolbar from '../MyToolbar';
@@ -26,7 +26,7 @@ class EventCreate extends React.Component {
   }
 
   createEvent() {
-    this.props.actions.createEvent(this.state);
+    this.props.createEvent(this.state);
     this.props.navigator.popPage();
   }
 
@@ -90,13 +90,13 @@ const mapStateToProps = (state) => {
   return {
     url: state.ui.urlHistory[state.ui.urlHistory.length - 1],
   };
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(Actions, dispatch),
   };
-}
+};
 
 export default connect(
   mapStateToProps,

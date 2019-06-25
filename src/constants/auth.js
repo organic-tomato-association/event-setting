@@ -4,6 +4,7 @@ export const LOGIN_GOOGLE = 'LOGIN_GOOGLE';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const UPDATE = 'UPDATE';
+export const UPDATE_SUCCESS = 'UPDATE_SUCCESS';
 export const SET_LOGGED_IN = 'SET_LOGGED_IN';
 export const LOGOUT = 'LOGOUT';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
