@@ -29,8 +29,17 @@ class Home extends React.Component {
               {events.map((event) => (
                 <Col width={"50%"} key={event.id}>
                   <Card onClick={this.pushPage.bind(this, event.id)}>
-                    <h5>{event.name}</h5>
-                    <p>{event.description}</p>
+                    {(()=> {
+                      if (!!event.img) {
+                        return (
+                          <img src={event.img} alt=""/>
+                        );
+                      }
+                    })()}
+                    <div>
+                      <h5>{event.name}</h5>
+                      <p>{event.description}</p>
+                    </div>
                   </Card>
                 </Col>
               ))}

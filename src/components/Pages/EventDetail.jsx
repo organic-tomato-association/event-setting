@@ -12,7 +12,7 @@ class EventDetail extends React.Component {
     super();
     this.state = {
       isShowDeleteDialog: false,
-      displayEvent: props.events.find(e => e.id === props.event) || { name: '', description: '' },
+      displayEvent: props.events.find(e => e.id === props.event),
     };
   }
 
@@ -37,9 +37,14 @@ class EventDetail extends React.Component {
         key: 'eventEdit',
         event: key,
         title: 'Event Edit',
+        updateDisplayEvent: this.updateDisplayEvent.bind(this),
         navigator: this.props.navigator,
       },
     });
+  }
+
+  updateDisplayEvent(displayEvent) {
+    this.setState({displayEvent});
   }
 
   onCancelDialog() {
@@ -61,8 +66,26 @@ class EventDetail extends React.Component {
         renderToolbar={this.renderToolbar.bind(this)}
       >
         <Card>
-          <h2>{this.props.events.find(e => e.id === event).name}</h2>
-          <p>{this.props.events.find(e => e.id === event).description}</p>
+          <div className="event-header-image">
+            {(()=> {
+              if (this.state.displayEvent.hasOwnProperty('photoURL')) {
+                return (
+                  <img
+                    style={{width: '100%', maxWidth: '100%', height: '50%'}}
+                    src={this.state.displayEvent.photoURL}
+                    alt="event header"
+                  />
+                );
+              } else {
+                return (
+                  <p>no image</p>
+                );
+              }
+            })()}
+          </div>
+          <h2>{this.state.displayEvent.name}</h2>
+          <p>{this.state.displayEvent.description}</p>
+          <p>Created by {this.props.users.find(e => e.id === this.state.displayEvent.created_by).displayName}</p>
         </Card>
         <AlertDialog
           isOpen={this.state.isShowDeleteDialog}
@@ -105,6 +128,7 @@ class EventDetail extends React.Component {
 const mapStateToProps = (state) => {
   return {
     events: state.data.events,
+    users: state.data.users,
     uid: state.auth.uid,
     url: state.ui.urlHistory[state.ui.urlHistory.length - 1],
   };

@@ -5,6 +5,7 @@ import Actions from '../../actions';
 import { Button, Page, Input } from 'react-onsenui';
 
 import MyToolbar from '../MyToolbar';
+import ImageUploader from '../assets/ImageUploader/ImageUploader';
 
 class EventCreate extends React.Component {
   constructor() {
@@ -13,6 +14,7 @@ class EventCreate extends React.Component {
       name: '',
       description: '',
       member: [],
+      newPhoto: null,
     };
   }
   // イベントのURLを設定
@@ -26,8 +28,17 @@ class EventCreate extends React.Component {
   }
 
   createEvent() {
-    this.props.createEvent(this.state);
+    const event = {
+      name: this.state.name,
+      description: this.state.description,
+      member: this.state.member,
+    };
+    this.props.actions.createEvent(event, this.state.newPhoto);
     this.props.navigator.popPage();
+  }
+
+  updateNewPhoto(newPhoto) {
+    this.setState({ newPhoto });
   }
 
   render() {
@@ -37,6 +48,23 @@ class EventCreate extends React.Component {
       >
         <section>
           <div style={{ textAlign: 'center', margin: '20px' }}>
+            <div
+              style={{
+                display: 'inline-block',
+                marginBlockStart: '1em',
+                marginBlockEnd: '1em',
+                marginInlineStart: '0px',
+                marginInlineEnd: '0px',
+                width: '30vmax',
+                height: '15vmax',
+              }}
+            >
+              <ImageUploader
+                alt="event"
+                updatePhoto={(data) => this.updateNewPhoto(data)}
+                width={1000}
+                height={500} />
+            </div>
             <div style={{ margin: '8px' }}>
               <label style={{ textAlign: 'right' }}>イベント名</label>
             </div>

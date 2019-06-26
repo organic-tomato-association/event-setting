@@ -11,22 +11,24 @@ function syncEvents(events) {
 }
 
 // イベント作成
-function createEvent(event) {
+function createEvent(event, image) {
   return {
     type: types.FIRESTORE.EVENTS.CREATE,
     payload: {
       event,
+      image,
     },
   };
 }
 
 // イベントの更新
-function updateEvent(id, event) {
+function updateEvent(id, event, image) {
   return {
     type: types.FIRESTORE.EVENTS.UPDATE,
     payload: {
       id,
       event,
+      image,
     },
   };
 }

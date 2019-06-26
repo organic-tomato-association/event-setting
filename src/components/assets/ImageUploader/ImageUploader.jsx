@@ -80,12 +80,6 @@ export default class ImageUpdater extends React.Component {
                     className={cssModule.areaImg}
                   />
                 );
-              } else {
-                return (
-                  <div
-                    className={cssModule.areaText}
-                  >no image</div>
-                );
               }
             }
           )()}
@@ -94,10 +88,10 @@ export default class ImageUpdater extends React.Component {
             <div
               className={cssModule.areaOverlayText}
             >
-              <p>プロフィール画像を</p>
-              <p>変更</p>
+              変更
             </div>
             <input
+              accept="image/png,image/jpeg,image/webp"
               className={cssModule.areaInput}
               type="file"
               ref="file"

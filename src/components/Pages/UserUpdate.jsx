@@ -37,15 +37,17 @@ class UserUpdate extends React.Component {
         renderToolbar={this.renderToolbar.bind(this)}
       >
         <section style={{ textAlign: 'center' }}>
-          <div style={{
-            display: 'inline-block',
-            marginBlockStart: '1em',
-            marginBlockEnd: '1em',
-            marginInlineStart: '0px',
-            marginInlineEnd: '0px',
-            width: '20vmax',
-            height: '20vmax',
-          }}>
+          <div
+            style={{
+              display: 'inline-block',
+              marginBlockStart: '1em',
+              marginBlockEnd: '1em',
+              marginInlineStart: '0px',
+              marginInlineEnd: '0px',
+              width: '20vmax',
+              height: '20vmax',
+            }}
+          >
             <ImageUploader
               photoURL={this.state.photoURL}
               alt="profile"

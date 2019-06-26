@@ -5,18 +5,20 @@ import Actions from '../../actions';
 import { Button, Page, Input } from 'react-onsenui';
 
 import MyToolbar from '../MyToolbar';
+import ImageUploader from "../assets/ImageUploader/ImageUploader";
 
 class EventEdit extends React.Component {
   constructor(props) {
     super();
     this.state = {
       event: props.events.find(e => e.id === props.event),
+      newPhoto: null,
     }
   }
   // イベントのURLを設定
   componentDidMount() {
     const { event, events } = this.props;
-    this.event = events.find(e => e.id === event) || { name: '', description: '' };
+    this.setState({event : events.find(e => e.id === event) || { name: '', description: '' }});
     if (events.find(e => e.id === event)) {
       this.props.actions.pagePush(`/event/detail/${event}`);
     }
@@ -28,13 +30,19 @@ class EventEdit extends React.Component {
   }
 
   updateEvent() {
-    this.props.actions.updateEvent(this.props.event, this.state.event);
+    this.props.actions.updateEvent(this.props.event, this.state.event, this.state.newPhoto);
+    this.props.updateDisplayEvent(this.state.event);
     this.props.navigator.popPage();
   }
 
   disabledUpdateBtn() {
     return this.state.event.name === '';
   }
+
+  updateNewPhoto(newPhoto) {
+    this.setState({ newPhoto });
+  }
+
 
   render() {
     return (
@@ -43,6 +51,24 @@ class EventEdit extends React.Component {
       >
         <section>
           <div style={{ textAlign: 'center', margin: '20px' }}>
+            <div
+              style={{
+                display: 'inline-block',
+                marginBlockStart: '1em',
+                marginBlockEnd: '1em',
+                marginInlineStart: '0px',
+                marginInlineEnd: '0px',
+                width: '30vmax',
+                height: '15vmax',
+              }}
+            >
+              <ImageUploader
+                photoURL={this.state.event.photoURL}
+                alt="event"
+                updatePhoto={(data) => this.updateNewPhoto(data)}
+                width={1000}
+                height={500} />
+            </div>
             <div style={{ margin: '8px' }}>
               <label style={{ textAlign: 'right' }}>イベント名</label>
             </div>

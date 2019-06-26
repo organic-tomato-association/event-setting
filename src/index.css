@@ -12,3 +12,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.event-header-image {
+  width:100%;
+  max-width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px black;
+  background-color: #b3b3b8;
+}
+
+.event-header-image:before {
+  content: '';
+  display:block;
+  padding-top:50%;
+}
