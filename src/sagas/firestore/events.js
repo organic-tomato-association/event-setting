@@ -33,6 +33,7 @@ function* createEventSaga(action) {
   event.created_at = firebase.firestore.FieldValue.serverTimestamp();
   try {
     yield call(reduxSagaFirebase.firestore.addDocument, 'events', event);
+    yield put(Actions.notificationOpen('イベント情報を登録しました'));
   } catch (error) {
     console.error(error);
   }
@@ -48,6 +49,7 @@ function* updateEventSaga(action) {
     delete sendEvent.id;
     try {
       yield call(reduxSagaFirebase.firestore.updateDocument, `events/${id}`, sendEvent);
+      yield put(Actions.notificationOpen('イベント情報を更新しました'));
     } catch (error) {
       console.error(error);
     }
@@ -61,6 +63,7 @@ function* deleteEventSaga(action) {
   if (event.created_by === uid) {
     try {
       yield call(reduxSagaFirebase.firestore.deleteDocument, `events/${id}`);
+      yield put(Actions.notificationOpen('イベント情報を削除しました'));
     } catch (error) {
       console.error(error);
     }

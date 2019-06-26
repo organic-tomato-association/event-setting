@@ -9,6 +9,11 @@ const initialState = {
   urlHistory: [
     '/',
   ],
+  notification: {
+    isShow: false,
+    icon: 'md-check-circle',
+    message: '',
+  },
 };
 
 /**
@@ -19,7 +24,7 @@ const initialState = {
 export default function ui(state = initialState, action) {
   switch (action.type) {
     case types.TAB_CHANGE:
-      const title = action.id === 0 ? 'Home' : 'My Page'
+      const title = action.id === 0 ? 'Home' : 'My Page';
       return {
         ...state,
         tab: action.payload.id,
@@ -29,7 +34,7 @@ export default function ui(state = initialState, action) {
       return {
         ...state,
         title: 'Home',
-      }
+      };
     case types.OPEN_SPLITTER:
       return {
         ...state,
@@ -50,7 +55,25 @@ export default function ui(state = initialState, action) {
       return {
         ...state,
         isFirstLoad: false,
-      }
+      };
+    case types.NOTIFICATION.OPEN:
+      return {
+        ...state,
+        notification: {
+          isShow: true,
+          icon: action.payload.icon,
+          message: action.payload.message,
+        },
+      };
+    case types.NOTIFICATION.CLOSE:
+      return {
+        ...state,
+        notification: {
+          isShow: false,
+          style: 'md-check-circle',
+          message: '',
+        }
+      };
     default:
       return state;
   }

@@ -1,5 +1,6 @@
 import auth from './auth';
 import page from './page';
+import notification from './notification';
 import firestore from './firestore';
 import * as types from "../constants/ActionTypes";
 
@@ -31,6 +32,7 @@ export default {
   ...auth,
   ...page,
   ...firestore,
+  ...notification,
   tabChange,
   closeSplitter,
   openSplitter,

@@ -61,8 +61,8 @@ class EventDetail extends React.Component {
         renderToolbar={this.renderToolbar.bind(this)}
       >
         <Card>
-          <h2>{this.state.displayEvent.name}</h2>
-          <p>{this.state.displayEvent.description}</p>
+          <h2>{this.props.events.find(e => e.id === event).name}</h2>
+          <p>{this.props.events.find(e => e.id === event).description}</p>
         </Card>
         <AlertDialog
           isOpen={this.state.isShowDeleteDialog}
