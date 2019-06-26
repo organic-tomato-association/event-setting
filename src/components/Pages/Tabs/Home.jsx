@@ -30,9 +30,12 @@ class Home extends React.Component {
                 <Col width={"50%"} key={event.id}>
                   <Card onClick={this.pushPage.bind(this, event.id)}>
                     {(()=> {
-                      if (!!event.img) {
+                      if (event.hasOwnProperty('photoURL')) {
                         return (
-                          <img src={event.img} alt=""/>
+                          <img
+                            style={{ width: '100%', maxWidth: '100%', height: '50%' }}
+                            src={event.photoURL}
+                            alt="event"/>
                         );
                       }
                     })()}

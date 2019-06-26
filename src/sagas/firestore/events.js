@@ -30,9 +30,9 @@ export function* syncEventsSaga() {
 function* uploadEventImage(image, eventId) {
   const uid = yield select(getUserId);
   const task = reduxSagaFirebase
-    .storage.uploadFile(`events/${eventId}.jpg`, image, { uid });
+    .storage.uploadFile(`events/${uid}/${eventId}.jpg`, image);
   yield task;
-  return yield call(reduxSagaFirebase.storage.getDownloadURL, `events/${eventId}.jpg`);
+  return yield call(reduxSagaFirebase.storage.getDownloadURL, `events/${uid}/${eventId}.jpg`);
 }
 
 // イベント情報を作成する
@@ -79,7 +79,7 @@ function* deleteEventSaga(action) {
   if (event.created_by === uid) {
     try {
       yield call(reduxSagaFirebase.firestore.deleteDocument, `events/${id}`);
-      yield call(reduxSagaFirebase.storage.deleteFile, `events/${id}.jpg`);
+      yield call(reduxSagaFirebase.storage.deleteFile, `events/${uid}/${id}.jpg`);
       yield put(Actions.notificationOpen('イベント情報を削除しました'));
     } catch (error) {
       console.error(error);
