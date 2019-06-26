@@ -66,26 +66,49 @@ class EventDetail extends React.Component {
         renderToolbar={this.renderToolbar.bind(this)}
       >
         <Card>
-          <div className="event-header-image">
-            {(()=> {
-              if (this.state.displayEvent.hasOwnProperty('photoURL')) {
-                return (
-                  <img
-                    style={{width: '100%', maxWidth: '100%', height: '50%'}}
-                    src={this.state.displayEvent.photoURL}
-                    alt="event header"
-                  />
-                );
-              } else {
-                return (
-                  <p>no image</p>
-                );
-              }
-            })()}
+          <div className="event-detail">
+            <div className="event-detail-data">
+              <div className="event-detail-data-image">
+                {(()=> {
+                  if (this.state.displayEvent.hasOwnProperty('photoURL')) {
+                    return (
+                      <img
+                        style={{width: '100%', objectFit: 'cover'}}
+                        src={this.state.displayEvent.photoURL}
+                        alt="event header"
+                      />
+                    );
+                  } else {
+                    return (
+                      <p>no image</p>
+                    );
+                  }
+                })()}
+              </div>
+              <div className="event-detail-data-text">
+                <h2>{this.state.displayEvent.name}</h2>
+                <p>{this.state.displayEvent.description}</p>
+                <p>Created by {this.props.users.find(e => e.id === this.state.displayEvent.created_by).displayName}</p>
+              </div>
+            </div>
+            <div className="event-detail-member" style={{textAlign: 'center'}}>
+              <div>
+                <Button style={{margin: '5px'}}>参加する</Button>
+                <Button style={{margin: '5px'}}>不参加</Button>
+              </div>
+              <div className="event-detail-member-list">
+                {(() => {
+                  if (!!this.state.displayEvent.member.length) {
+                    return this.state.displayEvent.member.map(member => (
+                      <div className="event-detail-member-list-item">{member.name}</div>
+                    ));
+                  } else {
+                    return (<div>まだ参加者はいません。</div>)
+                  }
+                })()}
+               </div>
+            </div>
           </div>
-          <h2>{this.state.displayEvent.name}</h2>
-          <p>{this.state.displayEvent.description}</p>
-          <p>Created by {this.props.users.find(e => e.id === this.state.displayEvent.created_by).displayName}</p>
         </Card>
         <AlertDialog
           isOpen={this.state.isShowDeleteDialog}
