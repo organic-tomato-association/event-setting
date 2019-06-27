@@ -25,12 +25,7 @@ class EventListItem extends React.Component {
                   <div
                     className={moduleClass.eventCardNoImage}
                   >
-                    <div
-                      style={{
-                        padding: '5px',
-                        backgroundColor: 'rgba(0, 0, 0, .12)',
-                        boxShadow: '0 3px 2px rgba(0, 0, 0, .12)'}}
-                    >no Image</div>
+                    <div>no image</div>
                   </div>
                 </div>
               );
