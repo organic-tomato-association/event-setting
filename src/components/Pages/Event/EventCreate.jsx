@@ -62,8 +62,8 @@ class EventCreate extends React.Component {
               <ImageUploader
                 alt="event"
                 updatePhoto={(data) => this.updateNewPhoto(data)}
-                width={1000}
-                height={500} />
+                width={640}
+                height={320} />
             </div>
             <div style={{ margin: '8px' }}>
               <label style={{ textAlign: 'right' }}>イベント名</label>
