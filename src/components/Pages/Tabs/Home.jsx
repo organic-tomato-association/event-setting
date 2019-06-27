@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import Actions from '../../../actions';
-import { Page, Row, Col } from 'react-onsenui';
+import { Page, Row } from 'react-onsenui';
 import EventDetail from '../Event/EventDetail';
 import EventListItem from "../../assets/EventListItem/EventListItem";
 
