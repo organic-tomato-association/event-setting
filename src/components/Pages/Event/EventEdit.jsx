@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import Actions from '../../actions';
+import Actions from '../../../actions';
 import { Button, Page, Input } from 'react-onsenui';
 
-import MyToolbar from '../MyToolbar';
-import ImageUploader from "../assets/ImageUploader/ImageUploader";
+import MyToolbar from '../../MyToolbar';
+import ImageUploader from "../../assets/ImageUploader/ImageUploader";
 
 class EventEdit extends React.Component {
   constructor(props) {

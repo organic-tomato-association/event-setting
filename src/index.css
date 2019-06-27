@@ -19,7 +19,7 @@ code {
   justify-content: center;
   align-items: center;
   border: solid 1px black;
-  background-color: #b3b3b8;
+  background-color: #b3b3b3;
 }
 
 .event-detail-data-image:before {
@@ -47,7 +47,7 @@ code {
     justify-content: center;
     align-items: center;
     border: solid 1px black;
-    background-color: #b3b3b8;
+    background-color: #b3b3b3;
     text-align: center;
   }
 }
@@ -60,7 +60,7 @@ code {
     justify-content: center;
     align-items: center;
     border: solid 1px black;
-    background-color: #b3b3b8;
+    background-color: #b3b3b3;
   }
 
   .event-detail {

@@ -4,16 +4,16 @@ import { bindActionCreators } from 'redux';
 import Actions from '../actions';
 import { Page, List, ListItem } from 'react-onsenui';
 
-import UserUpdate from './Pages/UserUpdate';
-import EventCreate from './Pages/EventCreate';
+import EventCreate from './Pages/Event/EventCreate';
+import UserEdit from './Pages/User/UserEdit';
 
 class SplitterView extends React.Component {
   pushPageUserUpdate() {
     this.props.actions.closeSplitter();
     const pages = this.props.navigator.pages;
-    if (pages[pages.length - 1].key !== 'userUpdate') {
+    if (pages[pages.length - 1].key !== 'userEdit') {
       this.props.navigator.pushPage({
-        component: UserUpdate,
+        component: UserEdit,
         props: {
           key: 'ユーザー設定',
           title: 'ユーザー設定',
@@ -47,7 +47,7 @@ class SplitterView extends React.Component {
         </div>
         <h4>{displayName}</h4>
         <List>
-          <ListItem key={UserUpdate.name} onClick={this.pushPageUserUpdate.bind(this)}>ユーザー情報更新</ListItem>
+          <ListItem key={UserEdit.name} onClick={this.pushPageUserUpdate.bind(this)}>ユーザー情報更新</ListItem>
         </List>
         <h3>Event</h3>
         <List>

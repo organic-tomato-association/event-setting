@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import Actions from '../../../actions';
-import { Page, Card, Row, Col } from 'react-onsenui';
-import EventDetail from '../EventDetail';
+import { Page, Row, Col } from 'react-onsenui';
+import EventDetail from '../Event/EventDetail';
+import EventListItem from "../../assets/EventListItem/EventListItem";
 
 class Home extends React.Component {
   pushPage(key) {
@@ -25,26 +26,13 @@ class Home extends React.Component {
         <section>
           <h2 style={{ textAlign: 'center' }}>Event</h2>
           <div>
-            <Row>
+            <Row style={{justifyContent: 'center'}}>
               {events.map((event) => (
-                <Col width={"50%"} key={event.id}>
-                  <Card onClick={this.pushPage.bind(this, event.id)}>
-                    {(()=> {
-                      if (event.hasOwnProperty('photoURL')) {
-                        return (
-                          <img
-                            style={{ width: '100%', maxWidth: '100%', height: '50%' }}
-                            src={event.photoURL}
-                            alt="event"/>
-                        );
-                      }
-                    })()}
-                    <div>
-                      <h5>{event.name}</h5>
-                      <p>{event.description}</p>
-                    </div>
-                  </Card>
-                </Col>
+                <EventListItem
+                  key={event.id}
+                  event={event}
+                  onClick={() => this.pushPage.bind(this, event.id)}
+                />
               ))}
             </Row>
           </div>

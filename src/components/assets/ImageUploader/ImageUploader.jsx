@@ -4,7 +4,7 @@ import { Button, Col, Modal, Range } from "react-onsenui";
 
 import cssModule from './ImageUploader.module.css';
 
-export default class ImageUpdater extends React.Component {
+class ImageUpdater extends React.Component {
   constructor(props) {
     super();
     this.state = {
@@ -192,3 +192,5 @@ export default class ImageUpdater extends React.Component {
     });
   }
 }
+
+export default ImageUpdater;
