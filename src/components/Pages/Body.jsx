@@ -107,7 +107,11 @@ class Body extends React.Component {
             },
             {
               content: <MyPage key={1} active={tab === 1} navigator={this.props.navigator} />,
-              tab: <Tab key={1} label="MyPage" icon="md-account" />
+              tab: <Tab key={1} label="Join Event" icon="md-account" />
+            },
+            {
+              content: <MyPage key={2} active={tab === 2} navigator={this.props.navigator} />,
+              tab: <Tab key={2} label="My Event" icon="md-account" />
             }
           ]}
         />

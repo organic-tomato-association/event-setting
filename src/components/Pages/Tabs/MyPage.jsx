@@ -24,23 +24,6 @@ class MyPage extends React.Component {
     return (
       <Page>
         <section>
-          <h2 style={{ textAlign: 'center' }}>Join Event</h2>
-          <div>
-            <Row style={{justifyContent: 'center'}}>
-              {events.filter(event => {
-                return event.member
-                    .find(member => member === userId) !== undefined
-              }).map((event) => (
-                <EventListItem
-                  key={event.id}
-                  event={event}
-                  onClick={() => this.pushPage.bind(this, event.id)}
-                />
-              ))}
-            </Row>
-          </div>
-        </section>
-        <section>
           <h2 style={{ textAlign: 'center' }}>My Event</h2>
           <div>
             <Row style={{justifyContent: 'center'}}>
