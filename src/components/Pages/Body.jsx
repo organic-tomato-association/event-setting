@@ -106,7 +106,7 @@ class Body extends React.Component {
               tab: <Tab key={0} label="Home" icon="md-home" />
             },
             {
-              content: <MyPage key={1} active={tab === 1} />,
+              content: <MyPage key={1} active={tab === 1} navigator={this.props.navigator} />,
               tab: <Tab key={1} label="MyPage" icon="md-account" />
             }
           ]}
