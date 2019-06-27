@@ -20,6 +20,7 @@ code {
   align-items: center;
   border: solid 1px black;
   background-color: #b3b3b3;
+  box-sizing: border-box;
 }
 
 .event-detail-data-image:before {
@@ -90,6 +91,8 @@ code {
   }
 
   .event-detail-data-text {
-    margin: 0 3rem;
+    padding: 0 3rem;
+    width: calc(100% - 640px);
+    box-sizing: border-box;
   }
 }
