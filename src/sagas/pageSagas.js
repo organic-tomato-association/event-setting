@@ -7,7 +7,8 @@ import * as types from '../constants/ActionTypes';
 function* pagePushSaga() {
   const url = yield select(getUrl);
   yield call(() => {
-    window.history.pushState(null, '', url);
+    window.history.replaceState(null, '', url);
+    // window.history.pushState(null, '', url);
   });
 }
 
@@ -15,7 +16,8 @@ function* pagePushSaga() {
 function* pagePopSaga() {
   const url = yield select(getUrl);
   yield call(() => {
-    window.history.pushState(null, '', url);
+    window.history.replaceState(null, '', url);
+    // window.history.pushState(null, '', url);
   });
 }
 

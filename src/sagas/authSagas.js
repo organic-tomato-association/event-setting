@@ -63,10 +63,10 @@ function* updateAuthSaga(action) {
     }
   }
   try {
-    console.log(user);
     yield call(reduxSagaFirebase.auth.updateProfile, user);
     yield put(Actions.setUser(user));
     yield put(Actions.updateProfileSuccess(user));
+    yield put(Actions.notificationOpen('ユーザー情報を更新しました'));
   } catch (error) {
     console.log(error);
   }

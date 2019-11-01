@@ -26,13 +26,27 @@ export function* syncEventsSaga() {
   }
 }
 
+// イベント画像をアップロードしてURLを取得する
+function* uploadEventImage(image, eventId) {
+  const uid = yield select(getUserId);
+  const task = reduxSagaFirebase
+    .storage.uploadFile(`events/${uid}/${eventId}.jpg`, image);
+  yield task;
+  return yield call(reduxSagaFirebase.storage.getDownloadURL, `events/${uid}/${eventId}.jpg`);
+}
+
 // イベント情報を作成する
 function* createEventSaga(action) {
-  const { event } = action.payload;
+  const { event, image } = action.payload;
   event.created_by = yield select(getUserId);
   event.created_at = firebase.firestore.FieldValue.serverTimestamp();
   try {
-    yield call(reduxSagaFirebase.firestore.addDocument, 'events', event);
+    const { id } = yield call(reduxSagaFirebase.firestore.addDocument, 'events', event);
+    if(!!image) {
+      event.photoURL = yield call(uploadEventImage, image, id);
+      yield call(reduxSagaFirebase.firestore.updateDocument, `events/${id}`, event);
+    }
+    yield put(Actions.notificationOpen('イベント情報を登録しました'));
   } catch (error) {
     console.error(error);
   }
@@ -40,14 +54,18 @@ function* createEventSaga(action) {
 
 // イベント情報を更新する
 function* updateEventSaga(action) {
-  const { id, event } = action.payload;
+  const { id, event, image } = action.payload;
   const sendEvent = {};
   Object.assign(sendEvent, event);
   const uid = yield select(getUserId);
   if (sendEvent.created_by === uid && id === sendEvent.id) {
     delete sendEvent.id;
     try {
+      if(!!image) {
+        sendEvent.photoURL = yield call(uploadEventImage, image, id);
+      }
       yield call(reduxSagaFirebase.firestore.updateDocument, `events/${id}`, sendEvent);
+      yield put(Actions.notificationOpen('イベント情報を更新しました'));
     } catch (error) {
       console.error(error);
     }
@@ -61,6 +79,8 @@ function* deleteEventSaga(action) {
   if (event.created_by === uid) {
     try {
       yield call(reduxSagaFirebase.firestore.deleteDocument, `events/${id}`);
+      yield call(reduxSagaFirebase.storage.deleteFile, `events/${uid}/${id}.jpg`);
+      yield put(Actions.notificationOpen('イベント情報を削除しました'));
     } catch (error) {
       console.error(error);
     }

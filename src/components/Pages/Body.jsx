@@ -10,10 +10,10 @@ import 'onsenui/css/onsen-css-components.css';
 import MyToolbar from '../MyToolbar';
 import Home from './Tabs/Home';
 import MyPage from './Tabs/MyPage';
-import EventDetail from './EventDetail';
+import EventDetail from './Event/EventDetail';
 import NotFound from './NotFound';
-import EventCreate from './EventCreate';
-import UserUpdate from './UserUpdate';
+import EventCreate from './Event/EventCreate';
+import UserEdit from './User/UserEdit';
 
 class Body extends React.Component {
   // ルートディレクトリの場合
@@ -42,7 +42,7 @@ class Body extends React.Component {
     if (this.props.isFirstLoad) {
       this.props.actions.firstLoad();
       this.props.navigator.pushPage({
-        component: UserUpdate,
+        component: UserEdit,
         props: {
           key: 'userUpdate',
           title: 'ユーザー設定',
@@ -106,8 +106,12 @@ class Body extends React.Component {
               tab: <Tab key={0} label="Home" icon="md-home" />
             },
             {
-              content: <MyPage key={1} active={tab === 1} />,
-              tab: <Tab key={1} label="MyPage" icon="md-account" />
+              content: <MyPage key={1} active={tab === 1} navigator={this.props.navigator} />,
+              tab: <Tab key={1} label="Join Event" icon="md-account" />
+            },
+            {
+              content: <MyPage key={2} active={tab === 2} navigator={this.props.navigator} />,
+              tab: <Tab key={2} label="My Event" icon="md-account" />
             }
           ]}
         />
@@ -131,9 +135,7 @@ class Body extends React.Component {
     this.props.actions.tabChange(index);
     this.props.navigator.routes[0].props.title = index === 0 ? 'Home' : 'My Page';
   }
-  renderToolbar(navigator) {
-    return React.createElement(MyToolbar, navigator);
-  }
+  renderToolbar = navigator => React.createElement(MyToolbar, navigator);
 }
 
 
